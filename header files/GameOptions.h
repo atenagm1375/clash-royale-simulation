@@ -33,6 +33,7 @@ private:
     QPushButton *back;
     QPushButton *start;
     QLabel *picture;
+    QLabel *picture1;
     QLabel *picture2;
 };
 

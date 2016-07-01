@@ -54,16 +54,21 @@ GameOptions::GameOptions(QWidget *parent) : QWidget(parent)
 
     start = new QPushButton("START", this);
     start->setFont(QFont("serif", 25, QFont::Bold));
-    start->setGeometry(500, 500, 200, 60);
+    start->setGeometry(500, 600, 200, 60);
 
     picture = new QLabel(this);
     picture->setPixmap(QPixmap("sources/king.png"));
-    picture->setGeometry(800, 200, 400, 400);
+    picture->setGeometry(800, 300, 400, 400);
     picture->setAttribute(Qt::WA_TranslucentBackground);
+
+    picture1 = new QLabel(this);
+    picture1->setPixmap(QPixmap("sources/Clash_Royale_Logo.png").scaled(500, 200));
+    picture1->setGeometry(300, 350, 500, 200);
+    picture1->setAttribute(Qt::WA_TranslucentBackground);
 
     picture2 = new QLabel(this);
     picture2->setPixmap(QPixmap("sources/king2.png"));
-    picture2->setGeometry(100, 250, 400, 400);
+    picture2->setGeometry(100, 350, 400, 400);
     picture2->setAttribute(Qt::WA_TranslucentBackground);
 }
 
