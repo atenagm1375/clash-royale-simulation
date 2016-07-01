@@ -30,6 +30,7 @@ private:
     QLabel *enemyScore;
     QLabel *myScore;
     QPushButton *pause;
+    QLabel *card[4];
 };
 
 

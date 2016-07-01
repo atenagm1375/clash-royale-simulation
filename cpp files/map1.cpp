@@ -13,7 +13,7 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     this->setAlignment(Qt::AlignCenter);
 
     scene.setSceneRect(0, 0, 1200, 700);
-    QImage img("sources/28-free-polygonal-texture.jpg");
+    QImage img("sources/background2.jpg");
     QPixmap pic;
     pic.convertFromImage(img.scaled(1200, 700));
     scene.setBackgroundBrush(pic);
@@ -64,7 +64,7 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
 
     myScore = new QLabel("0");
     myScore->setFont(QFont("serif", 25, QFont::Bold));
-    myScore->setGeometry(50, 600, 25, 50);
+    myScore->setGeometry(1100, 100, 25, 50);
     myScore->setStyleSheet("QLabel { background : cyan; }");
     scene.addWidget(myScore);
 
@@ -87,7 +87,7 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     px.convertFromImage(im.scaled(200, 250));
     QGraphicsPixmapItem *king = new QGraphicsPixmapItem();
     king->setPixmap(px);
-    king->setPos(0, 200);
+    king->setPos(0, 450);
     scene.addItem(king);
 
     this->verticalScrollBar()->blockSignals(true);

@@ -3,6 +3,7 @@
 //
 
 #include <header files/map2.h>
+#include <QScrollBar>
 
 map2::map2(QWidget *parent) : QGraphicsView(parent)
 {
@@ -13,7 +14,10 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     this->setAlignment(Qt::AlignCenter);
 
     scene.setSceneRect(0, 0, 1200, 700);
-    scene.setBackgroundBrush(Qt::darkMagenta);
+    QImage img("sources/background2.jpg");
+    QPixmap pic;
+    pic.convertFromImage(img.scaled(1200, 700));
+    scene.setBackgroundBrush(pic);
     this->setScene(&scene);
 
     QImage grassImg("sources/grass1.jpg");
@@ -70,6 +74,31 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     pause->setFont(QFont("serif", 25, QFont::Bold));
     pause->setGeometry(1000, 325, 200, 50);
     scene.addWidget(pause);
+
+    for(int i = 0; i < 4; i++)
+        card[i] = new QLabel();
+    card[0]->setGeometry(1000, 450, 100, 50);
+    card[1]->setGeometry(1100, 450, 100, 50);
+    card[2]->setGeometry(1000, 550, 100, 50);
+    card[3]->setGeometry(1100, 550, 100, 50);
+    for(int i = 0; i < 4; i++)
+        scene.addWidget(card[i]);
+
+    QImage im("sources/king.png");
+    QPixmap px;
+    px.convertFromImage(im.scaled(200, 250));
+    QGraphicsPixmapItem *king = new QGraphicsPixmapItem();
+    king->setPixmap(px);
+    king->setPos(0, 200);
+    scene.addItem(king);
+
+    this->verticalScrollBar()->blockSignals(true);
+    this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->horizontalScrollBar()->blockSignals(true);
+    this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    this->update();
+    this->show();
 }
 
 map2::~map2() { }
