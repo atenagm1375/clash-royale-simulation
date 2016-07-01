@@ -8,8 +8,8 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
-    this->setFixedSize(1200, 630);
-    this->setGeometry(20, 20, 1200, 630);
+    this->setFixedSize(1200, 700);
+    this->setGeometry(20, 20, 1200, 700);
 
     QstackW = new QStackedWidget(this);
     firstPage = new FirstPage(QstackW);
@@ -49,6 +49,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     selectCard = new SelectCard(QstackW);
     QstackW->addWidget(selectCard);
+
+    m1 = new map1(QstackW);
+    QstackW->addWidget(m1);
 
     connect(firstPage->exit, SIGNAL(clicked()), this, SLOT(close()));
     connect(firstPage->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
@@ -161,5 +164,5 @@ void MainWindow::count(int state)
 
 void MainWindow::playGame()
 {
-
+    QstackW->setCurrentWidget(m1);
 }

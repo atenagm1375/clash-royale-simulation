@@ -6,8 +6,8 @@
 
 GameOptions::GameOptions(QWidget *parent) : QWidget(parent)
 {
-    this->setFixedSize(1200, 630);
-    this->setGeometry(20, 20, 1200, 630);
+    this->setFixedSize(1200, 700);
+    this->setGeometry(20, 20, 1200, 700);
 
     QPalette pal(palette());
     QRadialGradient gradient(600, 315, 400);

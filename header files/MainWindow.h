@@ -16,6 +16,7 @@
 #include "Settings.h"
 #include "GameOptions.h"
 #include "SelectCard.h"
+#include "map1.h"
 
 static int gameModeCode = 0;
 
@@ -38,6 +39,7 @@ private:
     QMediaPlaylist *playlist2;
     GameOptions *gameOptions;
     SelectCard *selectCard;
+    map1 *m1;
 
 public slots:
 

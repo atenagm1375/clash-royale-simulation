@@ -7,8 +7,8 @@
 
 SelectCard::SelectCard(QWidget *parent) : QWidget(parent)
 {
-    this->setFixedSize(1200, 630);
-    this->setGeometry(20, 20, 1200, 630);
+    this->setFixedSize(1200, 700);
+    this->setGeometry(20, 20, 1200, 700);
 
     QPalette pal(palette());
     QRadialGradient gradient(600, 315, 400);
@@ -179,7 +179,7 @@ SelectCard::SelectCard(QWidget *parent) : QWidget(parent)
 
     go = new QPushButton("GO!", this);
     go->setFont(QFont("serif", 25, QFont::Bold));
-    go->setGeometry(20, 20, 200, 60);
+    go->setGeometry(400, 630, 400, 60);
 
     countSelections = 8;
 }
