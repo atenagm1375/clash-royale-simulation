@@ -11,7 +11,7 @@
 #include <QtWidgets/qlabel.h>
 #include <QtWidgets/qpushbutton.h>
 
-class map2 : QGraphicsView{
+class map2 : public QGraphicsView{
 
     Q_OBJECT
 

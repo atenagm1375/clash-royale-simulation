@@ -51,10 +51,10 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
         bridge[i] = new QGraphicsPixmapItem();
     for(int i = 0; i < 4; i++)
         bridge[i]->setPixmap(bridgePxmp);
-    bridge[0]->setPos(300, 300);
-    bridge[1]->setPos(400, 300);
-    bridge[2]->setPos(700, 300);
-    bridge[3]->setPos(800, 300);
+    bridge[0]->setPos(275, 300);
+    bridge[1]->setPos(425, 300);
+    bridge[2]->setPos(675, 300);
+    bridge[3]->setPos(825, 300);
     for(int i = 0; i < 4; i++)
         scene.addItem(bridge[i]);
 
@@ -66,7 +66,7 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
 
     myScore = new QLabel("0");
     myScore->setFont(QFont("serif", 25, QFont::Bold));
-    myScore->setGeometry(50, 600, 25, 50);
+    myScore->setGeometry(1100, 100, 25, 50);
     myScore->setStyleSheet("QLabel { background : cyan; }");
     scene.addWidget(myScore);
 
@@ -89,7 +89,7 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     px.convertFromImage(im.scaled(200, 250));
     QGraphicsPixmapItem *king = new QGraphicsPixmapItem();
     king->setPixmap(px);
-    king->setPos(0, 200);
+    king->setPos(0, 450);
     scene.addItem(king);
 
     this->verticalScrollBar()->blockSignals(true);
