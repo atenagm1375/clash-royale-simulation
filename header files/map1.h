@@ -8,6 +8,8 @@
 
 #include <QtWidgets/qgraphicsview.h>
 #include <QGraphicsPixmapItem>
+#include <QtWidgets/qlabel.h>
+#include <QtWidgets/qpushbutton.h>
 
 class map1 : public QGraphicsView{
 
@@ -26,6 +28,10 @@ private:
     QGraphicsPixmapItem *river;
     QGraphicsPixmapItem *bridge1;
     QGraphicsPixmapItem *bridge2;
+    QLabel *enemyScore;
+    QLabel *myScore;
+    QPushButton *pause;
+    QLabel *card[4];
 };
 
 

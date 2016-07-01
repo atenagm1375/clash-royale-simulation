@@ -3,3 +3,73 @@
 //
 
 #include <header files/map2.h>
+
+map2::map2(QWidget *parent) : QGraphicsView(parent)
+{
+    this->setFixedSize(1200, 700);
+    this->setGeometry(20, 20, 1200, 700);
+    this->setSceneRect(0, 0, 1200, 700);
+    this->setAttribute(Qt::WA_TranslucentBackground);
+    this->setAlignment(Qt::AlignCenter);
+
+    scene.setSceneRect(0, 0, 1200, 700);
+    scene.setBackgroundBrush(Qt::darkMagenta);
+    this->setScene(&scene);
+
+    QImage grassImg("sources/grass1.jpg");
+    QPixmap grassPxmp;
+    grassPxmp.convertFromImage(grassImg.scaled(800, 700));
+    grass = new QGraphicsPixmapItem();
+    grass->setPixmap(grassPxmp);
+    grass->setPos(200, 0);
+    scene.addItem(grass);
+
+    QImage stoneImg("sources/stone.jpg");
+    QPixmap stonePxmp;
+    stonePxmp.convertFromImage(stoneImg.scaled(800, 80));
+    stone = new QGraphicsPixmapItem();
+    stone->setPixmap(stonePxmp);
+    stone->setPos(200, 310);
+    scene.addItem(stone);
+
+    QImage riverImg("sources/river-hi.png");
+    QPixmap riverPxmp;
+    riverPxmp.convertFromImage(riverImg.scaled(800, 60));
+    river = new QGraphicsPixmapItem();
+    river->setPixmap(riverPxmp);
+    river->setPos(200, 320);
+    scene.addItem(river);
+
+    QImage bridgeImg("sources/wooden_plank_bridge7.png");
+    QPixmap bridgePxmp;
+    bridgePxmp.convertFromImage(bridgeImg.scaled(60, 100));
+    for(int i = 0; i < 4; i++)
+        bridge[i] = new QGraphicsPixmapItem();
+    for(int i = 0; i < 4; i++)
+        bridge[i]->setPixmap(bridgePxmp);
+    bridge[0]->setPos(300, 300);
+    bridge[1]->setPos(400, 300);
+    bridge[2]->setPos(700, 300);
+    bridge[3]->setPos(800, 300);
+    for(int i = 0; i < 4; i++)
+        scene.addItem(bridge[i]);
+
+    enemyScore = new QLabel("0");
+    enemyScore->setFont(QFont("serif", 25, QFont::Bold));
+    enemyScore->setGeometry(50, 100, 25, 50);
+    enemyScore->setStyleSheet("QLabel { background : red; }");
+    scene.addWidget(enemyScore);
+
+    myScore = new QLabel("0");
+    myScore->setFont(QFont("serif", 25, QFont::Bold));
+    myScore->setGeometry(50, 600, 25, 50);
+    myScore->setStyleSheet("QLabel { background : cyan; }");
+    scene.addWidget(myScore);
+
+    pause = new QPushButton("PAUSE");
+    pause->setFont(QFont("serif", 25, QFont::Bold));
+    pause->setGeometry(1000, 325, 200, 50);
+    scene.addWidget(pause);
+}
+
+map2::~map2() { }

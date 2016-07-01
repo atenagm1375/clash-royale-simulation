@@ -53,6 +53,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m1 = new map1(QstackW);
     QstackW->addWidget(m1);
 
+    //m2 = new map2(QstackW);
+    //QstackW->addWidget(m2);
+
     connect(firstPage->exit, SIGNAL(clicked()), this, SLOT(close()));
     connect(firstPage->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
     connect(firstPage->start, SIGNAL(clicked()), this, SLOT(optionPage()));
@@ -164,5 +167,8 @@ void MainWindow::count(int state)
 
 void MainWindow::playGame()
 {
-    QstackW->setCurrentWidget(m1);
+    if(gameModeCode == 0)
+        QstackW->setCurrentWidget(m1);
+    //else
+      //  QstackW->setCurrentWidget(m2);
 }

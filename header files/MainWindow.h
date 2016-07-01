@@ -17,6 +17,7 @@
 #include "GameOptions.h"
 #include "SelectCard.h"
 #include "map1.h"
+#include "map2.h"
 
 static int gameModeCode = 0;
 
@@ -40,6 +41,7 @@ private:
     GameOptions *gameOptions;
     SelectCard *selectCard;
     map1 *m1;
+    map2 *m2;
 
 public slots:
 
