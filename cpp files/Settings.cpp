@@ -9,13 +9,11 @@ Settings::Settings(QWidget *parent) : QWidget(parent)
     this->setFixedSize(1200, 700);
     this->setGeometry(20, 20, 1200, 700);
 
-    QPalette pal(palette());
-    QRadialGradient gradient(600, 315, 400);
-    gradient.setColorAt(0, Qt::blue);
-    gradient.setColorAt(1, Qt::darkBlue);
-    pal.setBrush(QPalette::Background, gradient);
+    QPalette palet(palette());
+    QPixmap p("sources/blue1.jpg");
+    palet.setBrush(QPalette::Background, QBrush(Qt::white, p.scaled(1200, 700)));
     this->setAutoFillBackground(true);
-    this->setPalette(pal);
+    this->setPalette(palet);
 
     settingLabel = new QLabel("SETTINGS", this);
     settingLabel->setGeometry(450, 20, 400, 60);

@@ -18,8 +18,10 @@
 #include "SelectCard.h"
 #include "map1.h"
 #include "map2.h"
+#include "PausePage.h"
 
 static int gameModeCode = 0;
+static bool gamePaused = false;
 
 class MainWindow : public QMainWindow{
 
@@ -42,6 +44,7 @@ private:
     SelectCard *selectCard;
     map1 *m1;
     map2 *m2;
+    PausePage *pause;
 
 public slots:
 
@@ -55,6 +58,7 @@ public slots:
     void cardSelection();
     void count(int);
     void playGame();
+    void pauseGame();
 };
 
 

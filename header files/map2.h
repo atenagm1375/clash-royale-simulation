@@ -10,10 +10,12 @@
 #include <QGraphicsPixmapItem>
 #include <QtWidgets/qlabel.h>
 #include <QtWidgets/qpushbutton.h>
+#include <QtWidgets/qprogressbar.h>
 
 class map2 : public QGraphicsView{
 
     Q_OBJECT
+    friend class MainWindow;
 
 public:
 
@@ -31,6 +33,8 @@ private:
     QLabel *myScore;
     QPushButton *pause;
     QLabel *card[4];
+    QLabel *timeLabel;
+    QProgressBar *elixir;
 };
 
 

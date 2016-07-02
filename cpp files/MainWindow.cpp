@@ -56,6 +56,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     m2 = new map2(QstackW);
     QstackW->addWidget(m2);
 
+    pause = new PausePage(QstackW);
+    QstackW->addWidget(pause);
+
     connect(firstPage->exit, SIGNAL(clicked()), this, SLOT(close()));
     connect(firstPage->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
     connect(firstPage->start, SIGNAL(clicked()), this, SLOT(optionPage()));
@@ -88,6 +91,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(selectCard->infernoTower, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
     connect(selectCard->usingFurnace, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
     connect(selectCard->go, SIGNAL(clicked()), this, SLOT(playGame()));
+
+    connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+    connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+
+    connect(pause->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
+    connect(pause->quit, SIGNAL(clicked()), this, SLOT(goBack()));
+    connect(pause->backToGame, SIGNAL(clicked()), this, SLOT(playGame()));
 }
 
 MainWindow::~MainWindow() { }
@@ -101,6 +111,8 @@ void MainWindow::goBack()
 {
     if(QstackW->currentWidget() == selectCard)
         QstackW->setCurrentWidget(gameOptions);
+    else if(QstackW->currentWidget() == settings && gamePaused)
+        QstackW->setCurrentWidget(pause);
     else
         QstackW->setCurrentWidget(firstPage);
 }
@@ -167,8 +179,15 @@ void MainWindow::count(int state)
 
 void MainWindow::playGame()
 {
+    gamePaused = false;
     if(gameModeCode == 0)
         QstackW->setCurrentWidget(m1);
     else
         QstackW->setCurrentWidget(m2);
+}
+
+void MainWindow::pauseGame()
+{
+    gamePaused = true;
+    QstackW->setCurrentWidget(pause);
 }

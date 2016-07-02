@@ -10,16 +10,14 @@ FirstPage::FirstPage(QWidget *parent) : QWidget(parent)
     this->setGeometry(20, 20, 1200, 700);
 
     QPalette palet(palette());
-    QImage img("sources/clashroyale.jpg");
-    QPixmap p;
-    p.convertFromImage(img.scaled(1200, 700));
-    palet.setBrush(QPalette::Background, QBrush(Qt::white, p));
+    QPixmap p("sources/clashroyale.jpg");
+    palet.setBrush(QPalette::Background, QBrush(Qt::white, p.scaled(1200, 700)));
     this->setAutoFillBackground(true);
     this->setPalette(palet);
 
     start = new QPushButton("LET'S PLAY!", this);
     exit = new QPushButton("EXIT", this);
-    setting = new QPushButton("Settings", this);
+    setting = new QPushButton("SETTINGS", this);
 
     start->setGeometry(400, 600, 400, 60);
     start->setFont(QFont("serif", 30, QFont::Bold));
