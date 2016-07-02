@@ -84,8 +84,20 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     elixir->setMinimum(0);
     elixir->setMaximum(10);
     elixir->setFormat("%v");
+    elixir->setValue(5);
+    elixir->setStyleSheet("::chunk {"
+                                  "background-color: "
+                                  "qlineargradient(x0: 0, x2: 1, "
+                                  "stop: 0 red, stop: 0.3 red, "
+                                  "stop: 0.3 magenta, "
+                                  "stop: 0.7 cyan"
+                                  ")}");
     elixir->setGeometry(160, 200, 40, 430);
     scene.addWidget(elixir);
+
+    elixirTimer = new QTimer();
+    connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
+    elixirTimer->start(5000);
 
     this->verticalScrollBar()->blockSignals(true);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -97,3 +109,8 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
 }
 
 map2::~map2() { }
+
+void map2::incrementElixir()
+{
+    elixir->setValue(elixir->value() + 1);
+}

@@ -11,6 +11,7 @@
 #include <QtWidgets/qlabel.h>
 #include <QtWidgets/qpushbutton.h>
 #include <QtWidgets/qprogressbar.h>
+#include <QTimer>
 
 class map2 : public QGraphicsView{
 
@@ -35,6 +36,11 @@ private:
     QLabel *card[4];
     QLabel *timeLabel;
     QProgressBar *elixir;
+    QTimer *elixirTimer;
+
+public slots:
+
+    void incrementElixir();
 };
 
 
