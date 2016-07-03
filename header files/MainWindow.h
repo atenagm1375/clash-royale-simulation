@@ -31,6 +31,13 @@ public:
 
     MainWindow(QWidget * = 0);
     ~MainWindow();
+    void makeFirstPage();
+    void makeSettings();
+    void makeMusic();
+    void makeGameOptions();
+    void makeCardSelection();
+    void makeMap();
+    void makePause();
 
 private:
 
@@ -59,6 +66,7 @@ public slots:
     void count(int);
     void playGame();
     void pauseGame();
+    void quitGame();
 };
 
 

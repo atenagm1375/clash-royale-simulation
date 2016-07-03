@@ -12,52 +12,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->setGeometry(20, 20, 1200, 700);
 
     QstackW = new QStackedWidget(this);
-    firstPage = new FirstPage(QstackW);
-    QstackW->addWidget(firstPage);
     setCentralWidget(QstackW);
+
+    makeFirstPage();
     QstackW->setCurrentWidget(firstPage);
-
-    settings = new Settings(QstackW);
-    QstackW->addWidget(settings);
-
-    playlist1 = new QMediaPlaylist(this);
-    playlist1->addMedia(QUrl::fromLocalFile(QFileInfo("sources/a.mp3").absoluteFilePath()));
-    playlist1->setPlaybackMode(QMediaPlaylist::Loop);
-
-    playlist2 = new QMediaPlaylist(this);
-    playlist2->addMedia(QUrl::fromLocalFile(QFileInfo("sources/b.mp3").absoluteFilePath()));
-    playlist2->setPlaybackMode(QMediaPlaylist::Loop);
-
-    music = new QMediaPlayer(this);
-    if(settings->music1->isChecked())
-        music->setPlaylist(playlist1);
-    if(settings->music2->isChecked())
-        music->setPlaylist(playlist2);
-    if(settings->mute->isChecked()){
-        settings->volume->setValue(0);
-        music->setMuted(true);
-    }
-    else {
-        music->setMuted(false);
-        settings->mute->setChecked(false);
-        music->setVolume(settings->volume->value());
-    }
-    music->play();
-
-    gameOptions = new GameOptions(QstackW);
-    QstackW->addWidget(gameOptions);
-
-    selectCard = new SelectCard(QstackW);
-    QstackW->addWidget(selectCard);
-
-    m1 = new map1(QstackW);
-    QstackW->addWidget(m1);
-
-    m2 = new map2(QstackW);
-    QstackW->addWidget(m2);
-
-    pause = new PausePage(QstackW);
-    QstackW->addWidget(pause);
+    makeSettings();
+    makeMusic();
+    makeGameOptions();
+    makeCardSelection();
+    makePause();
 
     connect(firstPage->exit, SIGNAL(clicked()), this, SLOT(close()));
     connect(firstPage->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
@@ -92,15 +55,81 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(selectCard->usingFurnace, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
     connect(selectCard->go, SIGNAL(clicked()), this, SLOT(playGame()));
 
-    connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
-    connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
-
     connect(pause->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
-    connect(pause->quit, SIGNAL(clicked()), this, SLOT(goBack()));
+    connect(pause->quit, SIGNAL(clicked()), this, SLOT(quitGame()));
     connect(pause->backToGame, SIGNAL(clicked()), this, SLOT(playGame()));
 }
 
 MainWindow::~MainWindow() { }
+
+void MainWindow::makeFirstPage()
+{
+    firstPage = new FirstPage(QstackW);
+    QstackW->addWidget(firstPage);
+}
+
+void MainWindow::makeSettings()
+{
+    settings = new Settings(QstackW);
+    QstackW->addWidget(settings);
+}
+
+void MainWindow::makeMusic()
+{
+    playlist1 = new QMediaPlaylist(this);
+    playlist1->addMedia(QUrl::fromLocalFile(QFileInfo("sources/a.mp3").absoluteFilePath()));
+    playlist1->setPlaybackMode(QMediaPlaylist::Loop);
+
+    playlist2 = new QMediaPlaylist(this);
+    playlist2->addMedia(QUrl::fromLocalFile(QFileInfo("sources/b.mp3").absoluteFilePath()));
+    playlist2->setPlaybackMode(QMediaPlaylist::Loop);
+
+    music = new QMediaPlayer(this);
+    if(settings->music1->isChecked())
+        music->setPlaylist(playlist1);
+    if(settings->music2->isChecked())
+        music->setPlaylist(playlist2);
+    if(settings->mute->isChecked()){
+        settings->volume->setValue(0);
+        music->setMuted(true);
+    }
+    else {
+        music->setMuted(false);
+        settings->mute->setChecked(false);
+        music->setVolume(settings->volume->value());
+    }
+    music->play();
+}
+
+void MainWindow::makeGameOptions()
+{
+    gameOptions = new GameOptions(QstackW);
+    QstackW->addWidget(gameOptions);
+}
+
+void MainWindow::makeCardSelection()
+{
+    selectCard = new SelectCard(QstackW);
+    QstackW->addWidget(selectCard);
+}
+
+void MainWindow::makeMap()
+{
+    m1 = new map1(QstackW);
+    QstackW->addWidget(m1);
+
+    m2 = new map2(QstackW);
+    QstackW->addWidget(m2);
+
+    connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+    connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+}
+
+void MainWindow::makePause()
+{
+    pause = new PausePage(QstackW);
+    QstackW->addWidget(pause);
+}
 
 void MainWindow::settingPage()
 {
@@ -180,6 +209,7 @@ void MainWindow::count(int state)
 void MainWindow::playGame()
 {
     gamePaused = false;
+    makeMap();
     if(gameModeCode == 0)
         QstackW->setCurrentWidget(m1);
     else
@@ -190,4 +220,11 @@ void MainWindow::pauseGame()
 {
     gamePaused = true;
     QstackW->setCurrentWidget(pause);
+}
+
+void MainWindow::quitGame()
+{
+    delete m1;
+    delete m2;
+    QstackW->setCurrentWidget(gameOptions);
 }
