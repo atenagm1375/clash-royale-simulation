@@ -4,6 +4,7 @@
 
 #include <header files/map2.h>
 #include <QScrollBar>
+#include <header files/Specifications.h>
 
 map2::map2(QWidget *parent) : QGraphicsView(parent)
 {
@@ -42,9 +43,9 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     for(int i = 0; i < 4; i++)
         bridge[i]->setPixmap(bridgePxmp.scaled(60, 100));
     bridge[0]->setPos(275, 300);
-    bridge[1]->setPos(425, 300);
-    bridge[2]->setPos(675, 300);
-    bridge[3]->setPos(825, 300);
+    bridge[1]->setPos(400, 300);
+    bridge[2]->setPos(730, 300);
+    bridge[3]->setPos(855, 300);
     for(int i = 0; i < 4; i++)
         scene.addItem(bridge[i]);
 
@@ -98,6 +99,50 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     elixirTimer = new QTimer();
     connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
     elixirTimer->start(5000);
+
+    QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
+    kingTower = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px, elixirTimer);
+    kingTower->setPos(520, 550);
+    scene.addItem(kingTower);
+
+    QPixmap *px1 = new QPixmap(QPixmap("sources/mainTower.png").scaled(150, 150));
+    kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px1, elixirTimer);
+    kingTowerE->setPos(520, 0);
+    scene.addItem(kingTowerE);
+
+    QPixmap *px2 = new QPixmap(QPixmap("sources/arenaTower.png").scaled(100, 100));
+    leftTower1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
+    leftTower1->setPos(270, 500);
+    scene.addItem(leftTower1);
+
+    leftTower2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
+    leftTower2->setPos(390, 500);
+    scene.addItem(leftTower2);
+
+    rightTower1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
+    rightTower1->setPos(710, 500);
+    scene.addItem(rightTower1);
+
+    rightTower2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
+    rightTower2->setPos(840, 500);
+    scene.addItem(rightTower2);
+
+    QPixmap *px3 = new QPixmap(QPixmap("sources/arenaTowerE.png").scaled(100, 100));
+    leftTowerE1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    leftTowerE1->setPos(270, 100);
+    scene.addItem(leftTowerE1);
+
+    leftTowerE2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    leftTowerE2->setPos(390, 100);
+    scene.addItem(leftTowerE2);
+
+    leftTowerE1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    leftTowerE1->setPos(710, 100);
+    scene.addItem(leftTowerE1);
+
+    leftTowerE2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    leftTowerE2->setPos(840, 100);
+    scene.addItem(leftTowerE2);
 
     this->verticalScrollBar()->blockSignals(true);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

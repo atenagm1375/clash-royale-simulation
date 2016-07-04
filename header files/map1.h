@@ -12,6 +12,7 @@
 #include <QtWidgets/qpushbutton.h>
 #include <QtWidgets/qprogressbar.h>
 #include <QtCore/qtimer.h>
+#include "Tower.h"
 
 class map1 : public QGraphicsView{
 
@@ -38,6 +39,12 @@ private:
     QLabel *timeLabel;
     QProgressBar *elixir;
     QTimer *elixirTimer;
+    Tower *kingTower;
+    Tower *kingTowerE;
+    Tower *leftArenaTower;
+    Tower *rightArenaTower;
+    Tower *rightArenaTowerE;
+    Tower *leftArenaTowerE;
 
 public slots:
 

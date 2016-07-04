@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(pause->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
     connect(pause->quit, SIGNAL(clicked()), this, SLOT(quitGame()));
-    connect(pause->backToGame, SIGNAL(clicked()), this, SLOT(playGame()));
+    connect(pause->backToGame, SIGNAL(clicked()), this, SLOT(unPause()));
 }
 
 MainWindow::~MainWindow() { }
@@ -227,4 +227,13 @@ void MainWindow::quitGame()
     delete m1;
     delete m2;
     QstackW->setCurrentWidget(gameOptions);
+}
+
+void MainWindow::unPause()
+{
+    gamePaused = false;
+    if(gameModeCode == 0)
+        QstackW->setCurrentWidget(m1);
+    else
+        QstackW->setCurrentWidget(m2);
 }
