@@ -17,7 +17,7 @@ public:
     Object(int, int, double, int, int, double, double, QTimer *);
     ~Object();
 
-private:
+protected:
 
     int type;
     int target;
