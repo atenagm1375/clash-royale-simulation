@@ -14,7 +14,7 @@ class Object : public QObject, public QGraphicsPixmapItem{
 
 public:
 
-    Object(int, int, double, int, int, double, int, QTimer *);
+    Object(int, int, double, int, int, double, double, QTimer *);
     ~Object();
 
 private:
@@ -25,7 +25,7 @@ private:
     int hitPoints;
     int damage;
     double range;
-    int territory;
+    double territory;
 };
 
 
