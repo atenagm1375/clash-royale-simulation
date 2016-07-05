@@ -16,11 +16,6 @@ public:
 
     FireSpirits(QPixmap, QTimer *);
     ~FireSpirits();
-
-private:
-
-
-
 };
 
 
