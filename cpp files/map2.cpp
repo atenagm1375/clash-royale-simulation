@@ -19,11 +19,10 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     scene.setBackgroundBrush(pic.scaled(1200, 700));
     this->setScene(&scene);
 
-    QPixmap grassPxmp("sources/grass1.jpg");
-    grass = new QGraphicsPixmapItem();
-    grass->setPixmap(grassPxmp.scaled(800, 700));
-    grass->setPos(200, 0);
-    scene.addItem(grass);
+    cm = new CardManagement(&scene);
+    cm->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
+    cm->setPos(200, 0);
+    scene.addItem(cm);
 
     QPixmap stonePxmp("sources/379 copy.jpg");
     stone = new QGraphicsPixmapItem();
@@ -136,13 +135,13 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     leftTowerE2->setPos(390, 100);
     scene.addItem(leftTowerE2);
 
-    leftTowerE1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
-    leftTowerE1->setPos(710, 100);
-    scene.addItem(leftTowerE1);
+    rightTowerE1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    rightTowerE1->setPos(710, 100);
+    scene.addItem(rightTowerE1);
 
-    leftTowerE2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
-    leftTowerE2->setPos(840, 100);
-    scene.addItem(leftTowerE2);
+    rightTowerE2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    rightTowerE2->setPos(840, 100);
+    scene.addItem(rightTowerE2);
 
     this->verticalScrollBar()->blockSignals(true);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

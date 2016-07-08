@@ -3,7 +3,8 @@
 
 #include <header files/map1.h>
 #include <QScrollBar>
-#include <header files/Window.h>
+//#include <header files/Window.h>
+#include <iostream>
 #include "header files/Specifications.h"
 
 
@@ -99,11 +100,10 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
     elixirTimer->start(5000);
 
-    Window w;
-    for(int i = 0; i < 4; i++) {
-        w.myCardDeck.at(i)->setPos(card[i]->pos());
-        scene.addItem(w.myCardDeck[i]);
-    }
+    /*for(int i = 0; i < 4; i++) {
+        cm->myCardDeck.at(i)->setPos(card[i]->pos());
+        scene.addItem(cm->myCardDeck[i]);
+    }*/
 
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px, elixirTimer);
@@ -129,9 +129,9 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     leftArenaTowerE->setPos(340, 100);
     scene.addItem(leftArenaTowerE);
 
-    leftArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
-    leftArenaTowerE->setPos(790, 100);
-    scene.addItem(leftArenaTowerE);
+    rightArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    rightArenaTowerE->setPos(790, 100);
+    scene.addItem(rightArenaTowerE);
 
     this->verticalScrollBar()->blockSignals(true);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

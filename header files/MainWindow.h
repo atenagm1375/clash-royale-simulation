@@ -56,7 +56,6 @@ public:
     void makeCardSelection();
     void makeMap();
     void makePause();
-    QVector<Card *> myCardDeck;
 
 private:
 

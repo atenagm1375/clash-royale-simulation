@@ -3,8 +3,8 @@
 //
 
 #include <header files/CardManagement.h>
-#include <iostream>
-#include <header files/Window.h>
+//#include <iostream>
+//#include <header files/Window.h>
 
 CardManagement::CardManagement(QGraphicsScene *s) : scene(s)
 {
@@ -16,8 +16,8 @@ CardManagement::~CardManagement() { }
 
 void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    Window w;
-    w.myCardDeck.at(0)->setPos(event->pos().x() - w.myCardDeck.at(0)->boundingRect().center().x() + 200,
-                          event->pos().y() - w.myCardDeck.at(0)->boundingRect().center().y());
-    scene->addItem((QGraphicsItem *) w.myCardDeck.at(0));
+    //Window w;
+    myCardDeck.at(0)->setPos(event->pos().x() - myCardDeck.at(0)->boundingRect().center().x() + 200,
+                          event->pos().y() - myCardDeck.at(0)->boundingRect().center().y());
+    scene->addItem((QGraphicsItem *) myCardDeck.at(0));
 }

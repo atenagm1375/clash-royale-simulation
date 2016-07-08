@@ -10,6 +10,8 @@
 #include <QtWidgets/qgraphicsitem.h>
 #include <QtWidgets/qgraphicsscene.h>
 #include <QGraphicsSceneMouseEvent>
+#include <QList>
+#include "Card.h"
 
 class MainWindow;
 
@@ -22,6 +24,7 @@ public:
     CardManagement(QGraphicsScene *);
     ~CardManagement();
     void mousePressEvent(QGraphicsSceneMouseEvent *);
+    QList<Card *> myCardDeck;
 
 private:
 

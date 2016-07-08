@@ -24,12 +24,12 @@ public:
 
     map1(QWidget * = 0);
     ~map1();
+    
 
 private:
 
     QGraphicsScene scene;
     CardManagement *cm;
-    QGraphicsPixmapItem *grass;
     QGraphicsPixmapItem *stone;
     QGraphicsPixmapItem *river;
     QGraphicsPixmapItem *bridge1;

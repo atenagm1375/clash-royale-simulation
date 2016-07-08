@@ -13,6 +13,7 @@
 #include <QtWidgets/qprogressbar.h>
 #include <QTimer>
 #include "Tower.h"
+#include "CardManagement.h"
 
 class map2 : public QGraphicsView{
 
@@ -27,7 +28,7 @@ public:
 private:
 
     QGraphicsScene scene;
-    QGraphicsPixmapItem *grass;
+    CardManagement *cm;
     QGraphicsPixmapItem *stone;
     QGraphicsPixmapItem *river;
     QGraphicsPixmapItem *bridge[4];
