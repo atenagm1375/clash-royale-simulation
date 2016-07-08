@@ -1,12 +1,12 @@
 #include <iostream>
 #include <QtWidgets/qapplication.h>
-#include "header files/MainWindow.h"
+#include "header files/Window.h"
 
 using namespace std;
 
 int main(int argc, char **argv) {
     QApplication myApp(argc, argv);
-    MainWindow mainWindow;
-    mainWindow.show();
+    Window window;
+    window.mainWindow.show();
     return myApp.exec();
 }

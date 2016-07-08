@@ -10,7 +10,7 @@ FirstPage::FirstPage(QWidget *parent) : QWidget(parent)
     this->setGeometry(20, 20, 1200, 700);
 
     QPalette palet(palette());
-    QPixmap p("sources/clashroyale.jpg");
+    QPixmap p("sources/clash.jpg");
     palet.setBrush(QPalette::Background, QBrush(Qt::white, p.scaled(1200, 700)));
     this->setAutoFillBackground(true);
     this->setPalette(palet);

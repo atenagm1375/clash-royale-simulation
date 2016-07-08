@@ -38,21 +38,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(gameOptions->start, SIGNAL(clicked()), this, SLOT(cardSelection()));
 
     connect(selectCard->back, SIGNAL(clicked()), this, SLOT(goBack()));
-    connect(selectCard->lavaHound, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->iceWizard, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->balloon, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->darkPrince, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->hogRider, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->minionHorde, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->valkyrie, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->miner, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->witch, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->royalGiant, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->mirror, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->zap, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->rage, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->infernoTower, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
-    connect(selectCard->usingFurnace, SIGNAL(stateChanged(int)), this, SLOT(count(int)));
+    connect(selectCard->lavaHound, SIGNAL(stateChanged(int)), this, SLOT(lavaHoundChanged(int)));
+    connect(selectCard->iceWizard, SIGNAL(stateChanged(int)), this, SLOT(iceWizardChanged(int)));
+    connect(selectCard->balloon, SIGNAL(stateChanged(int)), this, SLOT(balloonChanged(int)));
+    connect(selectCard->darkPrince, SIGNAL(stateChanged(int)), this, SLOT(darkPrinceChanged(int)));
+    connect(selectCard->hogRider, SIGNAL(stateChanged(int)), this, SLOT(hogRiderChanged(int)));
+    connect(selectCard->minionHorde, SIGNAL(stateChanged(int)), this, SLOT(minionHordeChanged(int)));
+    connect(selectCard->valkyrie, SIGNAL(stateChanged(int)), this, SLOT(valkyrieChanged(int)));
+    connect(selectCard->miner, SIGNAL(stateChanged(int)), this, SLOT(minerChanged(int)));
+    connect(selectCard->witch, SIGNAL(stateChanged(int)), this, SLOT(witchChanged(int)));
+    connect(selectCard->royalGiant, SIGNAL(stateChanged(int)), this, SLOT(royaleGiantChanged(int)));
+    connect(selectCard->mirror, SIGNAL(stateChanged(int)), this, SLOT(mirrorChanged(int)));
+    connect(selectCard->zap, SIGNAL(stateChanged(int)), this, SLOT(zapChanged(int)));
+    connect(selectCard->rage, SIGNAL(stateChanged(int)), this, SLOT(rageChanged(int)));
+    connect(selectCard->infernoTower, SIGNAL(stateChanged(int)), this, SLOT(infernoTowerChanged(int)));
+    connect(selectCard->usingFurnace, SIGNAL(stateChanged(int)), this, SLOT(furnaceChanged(int)));
     connect(selectCard->go, SIGNAL(clicked()), this, SLOT(playGame()));
 
     connect(pause->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
@@ -111,6 +111,33 @@ void MainWindow::makeCardSelection()
 {
     selectCard = new SelectCard(QstackW);
     QstackW->addWidget(selectCard);
+
+    timer = new QTimer();
+
+    lavaHound = new LavaHound(QPixmap("sources/1.png"), timer);
+    iceWizard = new IceWizard(QPixmap("sources/4.png"), timer);
+    balloon = new Balloon(QPixmap("sources/2.png"), timer);
+    darkPrince = new DarkPrince(QPixmap("sources/5.png"), timer);
+    hogRider = new HogRider(QPixmap("sources/10.png"), timer);
+    minionHorde = new MinionHorde(QPixmap("sources/3.png"), timer);
+    valkyrie = new Valkyrie(QPixmap("sources/7.png"), timer);
+    miner = new Miner(QPixmap("sources/6.png"), timer);
+    witch = new Witch(QPixmap("sources/8.png"), timer);
+    royalGiant = new RoyalGiant(QPixmap("sources/9.png"), timer);
+    mirror = new Mirror(QPixmap("sources/11.png"), timer);
+    zap = new Zap(QPixmap("sources/12.png"), timer);
+    rage = new Rage(QPixmap("sources/13.png"), timer);
+    infernoTower = new InfernoTower(QPixmap("sources/15.png"), timer);
+    furnace = new UsingFurnace(QPixmap("sources/14.png"), timer);
+
+    myCardDeck.push_back(lavaHound);
+    myCardDeck.push_back(iceWizard);
+    myCardDeck.push_back(balloon);
+    myCardDeck.push_back(darkPrince);
+    myCardDeck.push_back(hogRider);
+    myCardDeck.push_back(mirror);
+    myCardDeck.push_back(zap);
+    myCardDeck.push_back(infernoTower);
 }
 
 void MainWindow::makeMap()
@@ -194,12 +221,252 @@ void MainWindow::cardSelection()
     QstackW->setCurrentWidget(selectCard);
 }
 
-void MainWindow::count(int state)
+/*void MainWindow::count(int state)
 {
     if(state == Qt::Checked)
         selectCard->countSelections++;
     if(state == Qt::Unchecked)
         selectCard->countSelections--;
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}*/
+
+void MainWindow::lavaHoundChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(lavaHound);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(lavaHound);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::iceWizardChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(iceWizard);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(iceWizard);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::balloonChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(balloon);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(balloon);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::darkPrinceChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(darkPrince);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(darkPrince);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::hogRiderChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(hogRider);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(hogRider);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::minionHordeChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(minionHorde);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(minionHorde);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::valkyrieChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(valkyrie);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(valkyrie);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::minerChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(miner);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(miner);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::witchChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(witch);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(witch);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::royaleGiantChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(royalGiant);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(royalGiant);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::mirrorChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(mirror);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(mirror);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::zapChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(zap);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(zap);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::rageChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(rage);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(rage);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::infernoTowerChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(infernoTower);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(infernoTower);
+    }
+    if(selectCard->countSelections != 8)
+        selectCard->go->setDisabled(true);
+    else
+        selectCard->go->setEnabled(true);
+}
+
+void MainWindow::furnaceChanged(int state)
+{
+    if(state == Qt::Checked) {
+        selectCard->countSelections++;
+        myCardDeck.append(furnace);
+    }
+    else if(state == Qt::Unchecked) {
+        selectCard->countSelections--;
+        myCardDeck.removeOne(furnace);
+    }
     if(selectCard->countSelections != 8)
         selectCard->go->setDisabled(true);
     else

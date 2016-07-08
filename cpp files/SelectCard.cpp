@@ -4,6 +4,7 @@
 
 #include <header files/SelectCard.h>
 #include <QtGui/qpainter.h>
+#include <header files/MainWindow.h>
 
 SelectCard::SelectCard(QWidget *parent) : QWidget(parent)
 {

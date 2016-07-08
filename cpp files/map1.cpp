@@ -3,7 +3,9 @@
 
 #include <header files/map1.h>
 #include <QScrollBar>
+#include <header files/Window.h>
 #include "header files/Specifications.h"
+
 
 map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
 {
@@ -18,11 +20,10 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     scene.setBackgroundBrush(pic.scaled(1200, 700));
     this->setScene(&scene);
 
-    QPixmap grassPxmp("sources/grass1.jpg");
-    grass = new QGraphicsPixmapItem();
-    grass->setPixmap(grassPxmp.scaled(800, 700));
-    grass->setPos(200, 0);
-    scene.addItem(grass);
+    cm = new CardManagement(&scene);
+    cm->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
+    cm->setPos(200, 0);
+    scene.addItem(cm);
 
     QPixmap stonePxmp("sources/379 copy.jpg");
     stone = new QGraphicsPixmapItem();
@@ -97,6 +98,12 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     elixirTimer = new QTimer();
     connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
     elixirTimer->start(5000);
+
+    Window w;
+    for(int i = 0; i < 4; i++) {
+        w.myCardDeck.at(i)->setPos(card[i]->pos());
+        scene.addItem(w.myCardDeck[i]);
+    }
 
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px, elixirTimer);
