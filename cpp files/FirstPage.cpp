@@ -6,21 +6,20 @@
 
 FirstPage::FirstPage(QWidget *parent) : QWidget(parent)
 {
-    this->setFixedSize(1200, 630);
-    this->setGeometry(20, 20, 1200, 630);
+    this->setFixedSize(1200, 700);
+    this->setGeometry(20, 20, 1200, 700);
 
     QPalette palet(palette());
     QPixmap p("sources/clash.jpg");
-    p.scaled(this->size(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-    palet.setBrush(QPalette::Background, QBrush(Qt::white, p));
+    palet.setBrush(QPalette::Background, QBrush(Qt::white, p.scaled(1200, 700)));
     this->setAutoFillBackground(true);
     this->setPalette(palet);
 
     start = new QPushButton("LET'S PLAY!", this);
     exit = new QPushButton("EXIT", this);
-    setting = new QPushButton("Settings", this);
+    setting = new QPushButton("SETTINGS", this);
 
-    start->setGeometry(400, 500, 400, 60);
+    start->setGeometry(400, 600, 400, 60);
     start->setFont(QFont("serif", 30, QFont::Bold));
 
     exit->setGeometry(1000, 20, 150, 40);

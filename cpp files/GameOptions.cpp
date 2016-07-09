@@ -6,16 +6,14 @@
 
 GameOptions::GameOptions(QWidget *parent) : QWidget(parent)
 {
-    this->setFixedSize(1200, 630);
-    this->setGeometry(20, 20, 1200, 630);
+    this->setFixedSize(1200, 700);
+    this->setGeometry(20, 20, 1200, 700);
 
-    QPalette pal(palette());
-    QRadialGradient gradient(600, 315, 400);
-    gradient.setColorAt(0, Qt::blue);
-    gradient.setColorAt(1, Qt::darkBlue);
-    pal.setBrush(QPalette::Background, gradient);
+    QPalette palet(palette());
+    QPixmap p("sources/blue1.jpg");
+    palet.setBrush(QPalette::Background, QBrush(Qt::white, p.scaled(1200, 700)));
     this->setAutoFillBackground(true);
-    this->setPalette(pal);
+    this->setPalette(palet);
 
     nameLabel = new QLabel("NAME :", this);
     nameLabel->setFont(QFont("serif", 25, QFont::Bold));
@@ -54,16 +52,21 @@ GameOptions::GameOptions(QWidget *parent) : QWidget(parent)
 
     start = new QPushButton("START", this);
     start->setFont(QFont("serif", 25, QFont::Bold));
-    start->setGeometry(500, 500, 200, 60);
+    start->setGeometry(500, 600, 200, 60);
 
     picture = new QLabel(this);
     picture->setPixmap(QPixmap("sources/king.png"));
-    picture->setGeometry(800, 200, 400, 400);
+    picture->setGeometry(800, 300, 400, 400);
     picture->setAttribute(Qt::WA_TranslucentBackground);
 
+    picture1 = new QLabel(this);
+    picture1->setPixmap(QPixmap("sources/Clash_Royale_Logo.png").scaled(500, 200));
+    picture1->setGeometry(350, 350, 500, 200);
+    picture1->setAttribute(Qt::WA_TranslucentBackground);
+
     picture2 = new QLabel(this);
-    picture2->setPixmap(QPixmap("sources/king2.png"));
-    picture2->setGeometry(100, 250, 400, 400);
+    picture2->setPixmap(QPixmap("sources/Blue_Prince_Charge.png").scaled(300, 450));
+    picture2->setGeometry(50, 250, 300, 450);
     picture2->setAttribute(Qt::WA_TranslucentBackground);
 }
 
