@@ -231,18 +231,6 @@ void MainWindow::cardSelection()
     QstackW->setCurrentWidget(selectCard);
 }
 
-/*void MainWindow::count(int state)
-{
-    if(state == Qt::Checked)
-        selectCard->countSelections++;
-    if(state == Qt::Unchecked)
-        selectCard->countSelections--;
-    if(selectCard->countSelections != 8)
-        selectCard->go->setDisabled(true);
-    else
-        selectCard->go->setEnabled(true);
-}*/
-
 void MainWindow::lavaHoundChanged(int state)
 {
     if(state == Qt::Checked) {
@@ -486,8 +474,10 @@ void MainWindow::furnaceChanged(int state)
 void MainWindow::playGame()
 {
     gamePaused = false;
-    if(gameModeCode == 0)
+    if(gameModeCode == 0) {
+        m1->arrangeCardDeck();
         QstackW->setCurrentWidget(m1);
+    }
     else
         QstackW->setCurrentWidget(m2);
 }

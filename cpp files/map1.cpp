@@ -3,8 +3,6 @@
 
 #include <header files/map1.h>
 #include <QScrollBar>
-//#include <header files/Window.h>
-#include <iostream>
 #include "header files/Specifications.h"
 
 
@@ -100,11 +98,6 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
     elixirTimer->start(5000);
 
-    /*for(int i = 0; i < 4; i++) {
-        cm->myCardDeck.at(i)->setPos(card[i]->pos());
-        scene.addItem(cm->myCardDeck[i]);
-    }*/
-
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px, elixirTimer);
     kingTower->setPos(520, 550);
@@ -143,6 +136,14 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
 }
 
 map1::~map1() { }
+
+void map1::arrangeCardDeck()
+{
+    for(int i = 0; i < 4; i++) {
+        cm->myCardDeck.at(i)->setPos(card[i]->pos());
+        scene.addItem(cm->myCardDeck[i]);
+    }
+}
 
 void map1::incrementElixir()
 {

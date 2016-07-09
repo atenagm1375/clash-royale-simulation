@@ -97,7 +97,6 @@ public slots:
     void optionPage();
     void setGameMode();
     void cardSelection();
-    //void count(int);
     void lavaHoundChanged(int);
     void iceWizardChanged(int);
     void balloonChanged(int);

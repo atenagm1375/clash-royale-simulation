@@ -14,6 +14,7 @@ class Object : public QObject, public QGraphicsPixmapItem{
 
 public:
 
+    Object();
     Object(int, int, double, int, int, double, double, QTimer *);
     ~Object();
 

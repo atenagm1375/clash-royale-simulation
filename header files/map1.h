@@ -24,7 +24,7 @@ public:
 
     map1(QWidget * = 0);
     ~map1();
-    
+    void arrangeCardDeck();
 
 private:
 

@@ -4,6 +4,8 @@
 
 #include <header files/Object.h>
 
+Object::Object() { }
+
 Object::Object(int tp, int trgt, double hs, int hp, int d, double r, double tr, QTimer *timer)
 {
     type = tp;

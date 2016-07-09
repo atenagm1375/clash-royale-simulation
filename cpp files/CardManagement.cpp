@@ -3,8 +3,8 @@
 //
 
 #include <header files/CardManagement.h>
+#include <iostream>
 //#include <iostream>
-//#include <header files/Window.h>
 
 CardManagement::CardManagement(QGraphicsScene *s) : scene(s)
 {
@@ -16,8 +16,23 @@ CardManagement::~CardManagement() { }
 
 void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    //Window w;
-    myCardDeck.at(0)->setPos(event->pos().x() - myCardDeck.at(0)->boundingRect().center().x() + 200,
-                          event->pos().y() - myCardDeck.at(0)->boundingRect().center().y());
-    scene->addItem((QGraphicsItem *) myCardDeck.at(0));
+    int i = 0;
+    bool t = true;
+    for( ; t && i < 4; i++)
+        if(myCardDeck[i]->isSelected)
+            t = false;
+    i--;
+    if(!t) {
+        myCardDeck[i]->isSelected = false;
+        myCardDeck[4]->setPos(myCardDeck[i]->pos());
+        scene->removeItem(myCardDeck.at(i));
+        scene->addItem(myCardDeck[4]);
+        myCardDeck.at(i)->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
+                                 event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
+        scene->addItem((QGraphicsItem *) myCardDeck.at(i));
+
+        myCardDeck.push_back(myCardDeck[i]);
+        myCardDeck.swap(i, 4);
+        myCardDeck.removeAt(4);
+    }
 }
