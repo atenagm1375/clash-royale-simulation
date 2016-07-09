@@ -27,8 +27,12 @@ void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
         myCardDeck[4]->setPos(myCardDeck[i]->pos());
         scene->removeItem(myCardDeck.at(i));
         scene->addItem(myCardDeck[4]);
-        myCardDeck.at(i)->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
-                                 event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
+        if(event->pos().y() > 400)
+            myCardDeck.at(i)->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
+                                     event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
+        else
+            myCardDeck.at(i)->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
+                                     400 - myCardDeck.at(i)->boundingRect().center().y());
         scene->addItem((QGraphicsItem *) myCardDeck.at(i));
 
         myCardDeck.push_back(myCardDeck[i]);
