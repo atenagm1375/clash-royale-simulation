@@ -71,7 +71,7 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     card[2]->setGeometry(20, 420, 80, 100);
     card[3]->setGeometry(20, 530, 80, 100);
     for(int i = 0; i < 4; i++) {
-        card[i]->setStyleSheet("QLabel { background : darkRed; }");
+        card[i]->setStyleSheet("QLabel { background : #DE6641; }");
         scene.addWidget(card[i]);
     }
 
