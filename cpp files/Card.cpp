@@ -22,4 +22,5 @@ Card::~Card() { }
 void Card::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     this->isSelected = true;
+    this->pixmap().scaled(90, 90);
 }

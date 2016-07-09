@@ -70,8 +70,10 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     card[1]->setGeometry(20, 310, 80, 100);
     card[2]->setGeometry(20, 420, 80, 100);
     card[3]->setGeometry(20, 530, 80, 100);
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < 4; i++) {
+        card[i]->setStyleSheet("QLabel { background : darkRed; }");
         scene.addWidget(card[i]);
+    }
 
     timeLabel = new QLabel();
     timeLabel->setGeometry(1000, 450, 200, 50);
@@ -140,7 +142,7 @@ map1::~map1() { }
 void map1::arrangeCardDeck()
 {
     for(int i = 0; i < 4; i++) {
-        cm->myCardDeck.at(i)->setPos(card[i]->pos());
+        cm->myCardDeck.at(i)->setPos(card[i]->pos().x(), card[i]->pos().y() + 10);
         scene.addItem(cm->myCardDeck[i]);
     }
 }
