@@ -136,15 +136,21 @@ void MainWindow::makeMap()
     m1 = new map1(QstackW);
     QstackW->addWidget(m1);
 
+    m1->cm->allCards = {lavaHound, iceWizard, balloon, darkPrince, hogRider, minionHorde, valkyrie, miner,
+                        witch, royalGiant, mirror, zap, rage, infernoTower, furnace};
+
     m2 = new map2(QstackW);
     QstackW->addWidget(m2);
+
+    m2->cm->allCards = {lavaHound, iceWizard, balloon, darkPrince, hogRider, minionHorde, valkyrie, miner,
+                        witch, royalGiant, mirror, zap, rage, infernoTower, furnace};
 
     m1->cm->myCardDeck.push_back(lavaHound);
     m1->cm->myCardDeck.push_back(iceWizard);
     m1->cm->myCardDeck.push_back(balloon);
     m1->cm->myCardDeck.push_back(darkPrince);
     m1->cm->myCardDeck.push_back(hogRider);
-    m1->cm->myCardDeck.push_back(mirror);
+    m1->cm->myCardDeck.push_back(minionHorde);
     m1->cm->myCardDeck.push_back(zap);
     m1->cm->myCardDeck.push_back(infernoTower);
 
@@ -153,7 +159,7 @@ void MainWindow::makeMap()
     m2->cm->myCardDeck.push_back(balloon);
     m2->cm->myCardDeck.push_back(darkPrince);
     m2->cm->myCardDeck.push_back(hogRider);
-    m2->cm->myCardDeck.push_back(mirror);
+    m2->cm->myCardDeck.push_back(minionHorde);
     m2->cm->myCardDeck.push_back(zap);
     m2->cm->myCardDeck.push_back(infernoTower);
 }
