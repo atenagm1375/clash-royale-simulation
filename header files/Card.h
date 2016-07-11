@@ -10,7 +10,6 @@
 #include <QTimer>
 #include "Object.h"
 #include "Specifications.h"
-#include <QGraphicsSceneMouseEvent>
 
 class Card : public Object{
 
@@ -18,7 +17,7 @@ class Card : public Object{
 
 public:
 
-    Card();
+    //Card();
     Card(int, int, double, int, int, double, double, int, int, int, double, QTimer *);
     ~Card();
     //void mousePressEvent(QGraphicsSceneMouseEvent *);
