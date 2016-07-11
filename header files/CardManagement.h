@@ -25,10 +25,12 @@ public:
     ~CardManagement();
     void mousePressEvent(QGraphicsSceneMouseEvent *);
     QList<Card *> myCardDeck;
+    QList<Card *> allCards;
 
 private:
 
     QGraphicsScene *scene;
+    QTimer *timer;
 };
 
 

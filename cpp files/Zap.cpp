@@ -12,3 +12,9 @@ Zap::Zap(QPixmap pic, QTimer *timer)
 }
 
 Zap::~Zap() { }
+
+void Zap::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 12;
+}

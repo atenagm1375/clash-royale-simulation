@@ -16,6 +16,7 @@ public:
 
     DarkPrince(QPixmap, QTimer *);
     ~DarkPrince();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 
 private:
 

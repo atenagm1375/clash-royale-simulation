@@ -11,3 +11,9 @@ HogRider::HogRider(QPixmap pic, QTimer *timer)
 }
 
 HogRider::~HogRider() { }
+
+void HogRider::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 5;
+}

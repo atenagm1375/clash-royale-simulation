@@ -12,3 +12,9 @@ LavaHound::LavaHound(QPixmap pic, QTimer *timer)
 }
 
 LavaHound::~LavaHound() { }
+
+void LavaHound::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 1;
+}

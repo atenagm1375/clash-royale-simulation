@@ -14,3 +14,9 @@ UsingFurnace::UsingFurnace(QPixmap pic, QTimer *timer)
 }
 
 UsingFurnace::~UsingFurnace() { }
+
+void UsingFurnace::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 15;
+}

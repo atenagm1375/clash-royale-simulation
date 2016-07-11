@@ -16,6 +16,8 @@ public:
 
     Valkyrie(QPixmap, QTimer *);
     ~Valkyrie();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
+
 };
 
 

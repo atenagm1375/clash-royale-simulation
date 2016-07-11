@@ -12,3 +12,9 @@ Witch::Witch(QPixmap pic, QTimer *timer)
 }
 
 Witch::~Witch() { }
+
+void Witch::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 9;
+}

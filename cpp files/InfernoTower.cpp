@@ -11,3 +11,9 @@ InfernoTower::InfernoTower(QPixmap pic, QTimer *timer)
 }
 
 InfernoTower::~InfernoTower() { }
+
+void InfernoTower::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 14;
+}

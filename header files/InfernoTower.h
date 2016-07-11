@@ -16,6 +16,8 @@ public:
 
     InfernoTower(QPixmap, QTimer *);
     ~InfernoTower();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
+
 };
 
 

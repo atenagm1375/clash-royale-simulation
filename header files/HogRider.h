@@ -16,6 +16,8 @@ public:
 
     HogRider(QPixmap, QTimer *);
     ~HogRider();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
+
 };
 
 

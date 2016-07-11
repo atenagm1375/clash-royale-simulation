@@ -11,3 +11,9 @@ Valkyrie::Valkyrie(QPixmap pic, QTimer *timer)
 }
 
 Valkyrie::~Valkyrie() { }
+
+void Valkyrie::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 7;
+}

@@ -16,6 +16,8 @@ public:
 
     MinionHorde(QPixmap, QTimer *);
     ~MinionHorde();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
+
 };
 
 

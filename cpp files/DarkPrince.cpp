@@ -13,3 +13,9 @@ DarkPrince::DarkPrince(QPixmap pic, QTimer *timer)
 }
 
 DarkPrince::~DarkPrince() { }
+
+void DarkPrince::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 4;
+}

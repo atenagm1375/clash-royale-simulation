@@ -12,3 +12,9 @@ Balloon::Balloon(QPixmap pic, QTimer *timer)
 }
 
 Balloon::~Balloon() { }
+
+void Balloon::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 3;
+}

@@ -12,3 +12,9 @@ Rage::Rage(QPixmap pic, QTimer *timer)
 }
 
 Rage::~Rage() { }
+
+void Rage::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 13;
+}

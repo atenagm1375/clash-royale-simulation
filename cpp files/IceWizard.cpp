@@ -11,3 +11,9 @@ IceWizard::IceWizard(QPixmap pic, QTimer *timer)
 }
 
 IceWizard::~IceWizard() { }
+
+void IceWizard::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 2;
+}

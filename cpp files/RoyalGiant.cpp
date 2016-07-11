@@ -11,3 +11,9 @@ RoyalGiant::RoyalGiant(QPixmap pic, QTimer *timer)
 }
 
 RoyalGiant::~RoyalGiant() { }
+
+void RoyalGiant::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 10;
+}

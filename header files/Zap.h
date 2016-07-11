@@ -16,6 +16,7 @@ public:
 
     Zap(QPixmap, QTimer *);
     ~Zap();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 
 private:
 

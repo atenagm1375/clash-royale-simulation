@@ -11,3 +11,9 @@ MinionHorde::MinionHorde(QPixmap pic, QTimer *timer)
 }
 
 MinionHorde::~MinionHorde() { }
+
+void MinionHorde::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 6;
+}
