@@ -16,6 +16,7 @@ public:
 
     Balloon(QPixmap, QTimer *);
     ~Balloon();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 
 private:
 

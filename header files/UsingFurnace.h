@@ -17,6 +17,7 @@ public:
 
     UsingFurnace(QPixmap, QTimer *);
     ~UsingFurnace();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 
 private:
 

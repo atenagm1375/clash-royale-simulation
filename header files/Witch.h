@@ -17,6 +17,7 @@ public:
 
     Witch(QPixmap, QTimer *);
     ~Witch();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 
 private:
 

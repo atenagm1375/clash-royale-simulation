@@ -16,6 +16,7 @@ public:
 
     Rage(QPixmap, QTimer *);
     ~Rage();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 
 private:
 

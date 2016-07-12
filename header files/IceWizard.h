@@ -16,6 +16,8 @@ public:
 
     IceWizard(QPixmap, QTimer *);
     ~IceWizard();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
+
 };
 
 

@@ -16,6 +16,7 @@ public:
 
     Miner(QPixmap, QTimer *);
     ~Miner();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 
 private:
 

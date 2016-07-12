@@ -17,6 +17,7 @@ public:
 
     LavaHound(QPixmap, QTimer *);
     ~LavaHound();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
 
 private:
 

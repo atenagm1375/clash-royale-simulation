@@ -14,7 +14,7 @@ class Tower : public Object{
 
 public:
 
-    Tower(int, int, double, int, int, double, int, QPixmap *, QTimer *);
+    Tower(int, int, double, int, int, double, double, QPixmap *, QTimer *);
     ~Tower();
 
 private:

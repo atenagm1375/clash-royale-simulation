@@ -16,6 +16,8 @@ public:
 
     RoyalGiant(QPixmap, QTimer *);
     ~RoyalGiant();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
+
 };
 
 

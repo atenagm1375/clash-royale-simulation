@@ -16,6 +16,8 @@ public:
 
     Mirror(QPixmap, QTimer *);
     ~Mirror();
+    void mousePressEvent(QGraphicsSceneMouseEvent *);
+
 };
 
 

@@ -11,3 +11,9 @@ Mirror::Mirror(QPixmap pic, QTimer *timer)
 }
 
 Mirror::~Mirror() { }
+
+void Mirror::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    isSelected = true;
+    spc::cardNo = 11;
+}
