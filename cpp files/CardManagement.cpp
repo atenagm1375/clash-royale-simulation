@@ -42,12 +42,14 @@ void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
         myCardDeck[4]->setPos(myCardDeck[i]->pos());
         scene->removeItem(myCardDeck.at(i));
         scene->addItem(myCardDeck[4]);
+
         if(event->pos().y() > 400)
             myCardDeck.at(i)->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
                                      event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
         else
             myCardDeck.at(i)->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
                                      400 - myCardDeck.at(i)->boundingRect().center().y());
+        myCardDeck[i]->pixmap().scaled(20, 20);
         scene->addItem(myCardDeck.at(i));
 
         //std::cout << spc::cardNo << std::endl;
@@ -85,6 +87,6 @@ void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         myCardDeck.swap(i, 4);
         myCardDeck.removeAt(4);
-        std::cout << myCardDeck.size() << std::endl;
+        //std::cout << myCardDeck.size() << std::endl;
     }
 }

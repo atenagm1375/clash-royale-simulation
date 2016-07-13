@@ -27,6 +27,8 @@ protected:
     int damage;
     double range;
     double territory;
+    bool isAlive;
+    bool myTeam;
 };
 
 
