@@ -10,8 +10,10 @@
 #include "Fire.h"
 #include <QGraphicsScene>
 #include <QTimer>
-#include "Card.h"
+//#include "Card.h"
 #include <QList>
+
+class Card;
 
 class Tower : public Object{
 

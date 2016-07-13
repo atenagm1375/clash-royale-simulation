@@ -5,7 +5,7 @@
 #include <header files/Miner.h>
 
 Miner::Miner(QPixmap pic, QTimer *timer)
-        : Card(spc::Type::TROOP, spc::Target::Ground, 1.2, 1000, 160, 1, 2, spc::Speed::Fast, 3, 1, 1, timer)
+        : Card(spc::Type::GROUNDTROOP, spc::Target::Ground, 1.2, 1000, 160, 1, 2, spc::Speed::Fast, 3, 1, 1, timer)
 {
     this->setPixmap(pic);
     crownTowerDamage = 64;

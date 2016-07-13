@@ -17,9 +17,8 @@ public:
     Object();
     Object(int, int, double, int, int, double, double, QTimer *);
     ~Object();
-
-protected:
-
+    virtual void damaged(double) = 0;
+    bool isAlive;
     int type;
     int target;
     double hitSpeed;
@@ -27,7 +26,6 @@ protected:
     int damage;
     double range;
     double territory;
-    bool isAlive;
     bool myTeam;
 };
 

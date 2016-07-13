@@ -150,6 +150,8 @@ void Card::attack(QGraphicsPixmapItem *enemy)
         dynamic_cast<Tower *>(enemy)->damaged(this->damage);
     else
         dynamic_cast<Card *>(enemy)->damaged(this->damage);
+    shoot(enemy->pos().x() + enemy->boundingRect().center().x(),
+          enemy->pos().y() + enemy->boundingRect().center().y());
 }
 
 void Card::damaged(double d)

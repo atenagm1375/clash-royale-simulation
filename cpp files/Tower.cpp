@@ -34,7 +34,6 @@ Tower::~Tower()
         scene->removeItem(fire[i]);
         delete fire[i];
     }
-    delete fire;
 
     checkTimer->stop();
     delete checkTimer;
@@ -43,7 +42,7 @@ Tower::~Tower()
 void Tower::damaged(double d)
 {
     if(this->hitPoints > 0)
-        this->hitPoints -= this->damage;
+        this->hitPoints -= d;
     else
         killed();
 }
@@ -61,8 +60,8 @@ void Tower::killed()
 
 void Tower::attack(QGraphicsPixmapItem *enemy)
 {
-    if(dynamic_cast<Card *>(enemy) != NULL)
-        dynamic_cast<Card *>(enemy)->damaged(this->damage);
+    if(dynamic_cast<Object *>(enemy) != NULL)
+        dynamic_cast<Object *>(enemy)->damaged(this->damage);
     shoot(enemy->pos().x() + enemy->boundingRect().center().x(),
           enemy->pos().y() + enemy->boundingRect().center().y());
 }
