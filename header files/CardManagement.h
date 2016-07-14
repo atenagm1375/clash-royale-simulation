@@ -38,12 +38,6 @@ protected:
     QTimer *timer;
     QProgressBar *elixir;
     QTimer *elixirTimer;
-    Tower *kingTower;
-    Tower *kingTowerE;
-    Tower *leftArenaTower;
-    Tower *rightArenaTower;
-    Tower *rightArenaTowerE;
-    Tower *leftArenaTowerE;
 
 public slots:
 

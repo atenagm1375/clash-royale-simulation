@@ -23,8 +23,8 @@
 CardManagement::CardManagement(QGraphicsScene *s) : scene(s)
 {
     this->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
-    this->setPos(200, 0);
-    scene->addItem(this);
+    //this->setPos(200, 0);
+    //scene->addItem(this);
     timer = new QTimer();
     acceptedMouseButtons();
 
@@ -48,34 +48,6 @@ CardManagement::CardManagement(QGraphicsScene *s) : scene(s)
     elixirTimer = new QTimer();
     connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
     //elixirTimer->start(4500);
-
-    QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
-    kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px, timer);
-    kingTower->setPos(520, 550);
-    scene->addItem(kingTower);
-
-    QPixmap *px1 = new QPixmap(QPixmap("sources/mainTower.png").scaled(150, 150));
-    kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px1, timer);
-    kingTowerE->setPos(520, 0);
-    scene->addItem(kingTowerE);
-
-    QPixmap *px2 = new QPixmap(QPixmap("sources/arenaTower.png").scaled(100, 100));
-    leftArenaTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px2, timer);
-    leftArenaTower->setPos(340, 500);
-    scene->addItem(leftArenaTower);
-
-    rightArenaTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px2, timer);
-    rightArenaTower->setPos(790, 500);
-    scene->addItem(rightArenaTower);
-
-    QPixmap *px3 = new QPixmap(QPixmap("sources/arenaTowerE.png").scaled(100, 100));
-    leftArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px3, timer);
-    leftArenaTowerE->setPos(340, 100);
-    scene->addItem(leftArenaTowerE);
-
-    rightArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px3, timer);
-    rightArenaTowerE->setPos(790, 100);
-    scene->addItem(rightArenaTowerE);
 }
 
 CardManagement::~CardManagement() { }

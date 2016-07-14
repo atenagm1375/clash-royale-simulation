@@ -40,6 +40,13 @@ private:
     QPushButton *pause;
     QLabel *card[4];
     QLabel *timeLabel;
+    QTimer *timer;
+    Tower *kingTower;
+    Tower *kingTowerE;
+    Tower *leftArenaTower;
+    Tower *rightArenaTower;
+    Tower *rightArenaTowerE;
+    Tower *leftArenaTowerE;
 };
 
 
