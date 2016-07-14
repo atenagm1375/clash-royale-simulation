@@ -83,14 +83,17 @@ void CardManagement::incrementElixir()
     elixir->setValue(elixir->value() + 1);
 }
 
-void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
     int i = 0;
     for (i = 0; i < 4; i++)
         if (myCardDeck[i]->isSelected)
             break;
     if (spc::cardNo == 1) {
-        if (myCardDeck[i]->elixirCost < elixir->value())
+        if (myCardDeck[i]->elixirCost < elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
             myCardDeck.push_back(new LavaHound(QPixmap("1.png"), timer));
+        }
     }
     else if (spc::cardNo == 2)
         myCardDeck.push_back(new IceWizard(QPixmap("4.png"), timer));
