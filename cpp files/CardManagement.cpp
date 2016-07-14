@@ -47,7 +47,7 @@ CardManagement::CardManagement(QGraphicsScene *s) : scene(s)
 
     elixirTimer = new QTimer();
     connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
-    elixirTimer->start(5000);
+    //elixirTimer->start(4500);
 
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px, timer);

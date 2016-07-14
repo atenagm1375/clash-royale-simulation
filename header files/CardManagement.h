@@ -22,6 +22,7 @@ class map1;
 class CardManagement : public QObject, public QGraphicsPixmapItem{
 
     Q_OBJECT
+    friend class MainWindow;
 
 public:
 
@@ -31,7 +32,7 @@ public:
     QList<Card *> myCardDeck;
     QList<Card *> allCards;
 
-private:
+protected:
 
     QGraphicsScene *scene;
     QTimer *timer;
