@@ -19,6 +19,7 @@ class map1 : public QGraphicsView{
 
     Q_OBJECT
     friend class MainWindow;
+    friend class CardManagement;
 
 public:
 
@@ -39,18 +40,13 @@ private:
     QPushButton *pause;
     QLabel *card[4];
     QLabel *timeLabel;
-    QProgressBar *elixir;
-    QTimer *elixirTimer;
+    QTimer *timer;
     Tower *kingTower;
     Tower *kingTowerE;
     Tower *leftArenaTower;
     Tower *rightArenaTower;
     Tower *rightArenaTowerE;
     Tower *leftArenaTowerE;
-
-public slots:
-
-    void incrementElixir();
 };
 
 

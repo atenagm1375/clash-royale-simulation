@@ -100,46 +100,46 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     elixirTimer->start(5000);
 
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
-    kingTower = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px, elixirTimer);
+    kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px, elixirTimer);
     kingTower->setPos(520, 550);
     scene.addItem(kingTower);
 
     QPixmap *px1 = new QPixmap(QPixmap("sources/mainTower.png").scaled(150, 150));
-    kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px1, elixirTimer);
+    kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px1, elixirTimer);
     kingTowerE->setPos(520, 0);
     scene.addItem(kingTowerE);
 
     QPixmap *px2 = new QPixmap(QPixmap("sources/arenaTower.png").scaled(100, 100));
-    leftTower1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
+    leftTower1 = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
     leftTower1->setPos(270, 500);
     scene.addItem(leftTower1);
 
-    leftTower2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
+    leftTower2 = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
     leftTower2->setPos(390, 500);
     scene.addItem(leftTower2);
 
-    rightTower1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
+    rightTower1 = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
     rightTower1->setPos(710, 500);
     scene.addItem(rightTower1);
 
-    rightTower2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
+    rightTower2 = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px2, elixirTimer);
     rightTower2->setPos(840, 500);
     scene.addItem(rightTower2);
 
     QPixmap *px3 = new QPixmap(QPixmap("sources/arenaTowerE.png").scaled(100, 100));
-    leftTowerE1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    leftTowerE1 = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
     leftTowerE1->setPos(270, 100);
     scene.addItem(leftTowerE1);
 
-    leftTowerE2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    leftTowerE2 = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
     leftTowerE2->setPos(390, 100);
     scene.addItem(leftTowerE2);
 
-    rightTowerE1 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    rightTowerE1 = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
     rightTowerE1->setPos(710, 100);
     scene.addItem(rightTowerE1);
 
-    rightTowerE2 = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
+    rightTowerE2 = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 100, 400, 450, px3, elixirTimer);
     rightTowerE2->setPos(840, 100);
     scene.addItem(rightTowerE2);
 

@@ -11,9 +11,12 @@
 #include "Object.h"
 #include "Specifications.h"
 
+class CardManagement;
+
 class Card : public Object{
 
     Q_OBJECT
+    friend class CardManagement;
 
 public:
 

@@ -6,8 +6,8 @@
 #define CLASH_ROYALE_SPECIFICATIONS_H
 
 namespace spc{
-    enum Type{TROOP, BUILDING, SPELL};
-    enum Target{None, Air, Ground, Building, AirGround, All, what, Area};
+    enum Type{GROUNDTROOP, AIRTROOP, BUILDING, SPELL};
+    enum Target{Ground, Building, AirGround, what};
     enum Speed{NONE, Slow, Medium, Fast, VeryFast};
     extern int cardNo;
 }

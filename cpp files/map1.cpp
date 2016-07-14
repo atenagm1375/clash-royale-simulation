@@ -20,7 +20,7 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     this->setScene(&scene);
 
     cm = new CardManagement(&scene);
-    cm->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
+    //cm->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
     cm->setPos(200, 0);
     scene.addItem(cm);
 
@@ -79,52 +79,31 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     timeLabel->setGeometry(1000, 450, 200, 50);
     scene.addWidget(timeLabel);
 
-    elixir = new QProgressBar();
-    elixir->setOrientation(Qt::Orientation::Vertical);
-    elixir->setTextDirection(QProgressBar::BottomToTop);
-    elixir->setMinimum(0);
-    elixir->setMaximum(10);
-    elixir->setFormat("%v");
-    elixir->setValue(5);
-    elixir->setStyleSheet("::chunk {"
-                                  "background-color: "
-                                  "qlineargradient(x0: 0, x2: 1, "
-                                  "stop: 0 red, stop: 0.3 red, "
-                                  "stop: 0.3 magenta, "
-                                  "stop: 0.7 cyan"
-                                  ")}");
-    elixir->setGeometry(160, 200, 40, 430);
-    scene.addWidget(elixir);
-
-    elixirTimer = new QTimer();
-    connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
-    elixirTimer->start(5000);
-
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
-    kingTower = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 90, 7, 7, px, elixirTimer);
+    kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px, timer);
     kingTower->setPos(520, 550);
     scene.addItem(kingTower);
 
     QPixmap *px1 = new QPixmap(QPixmap("sources/mainTower.png").scaled(150, 150));
-    kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 4000, 90, 7, 7, px1, elixirTimer);
+    kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px1, timer);
     kingTowerE->setPos(520, 0);
     scene.addItem(kingTowerE);
 
     QPixmap *px2 = new QPixmap(QPixmap("sources/arenaTower.png").scaled(100, 100));
-    leftArenaTower = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 2000, 60, 7.5, 7.5, px2, elixirTimer);
+    leftArenaTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px2, timer);
     leftArenaTower->setPos(340, 500);
     scene.addItem(leftArenaTower);
 
-    rightArenaTower = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 2000, 60, 7.5, 7.5, px2, elixirTimer);
+    rightArenaTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px2, timer);
     rightArenaTower->setPos(790, 500);
     scene.addItem(rightArenaTower);
 
     QPixmap *px3 = new QPixmap(QPixmap("sources/arenaTowerE.png").scaled(100, 100));
-    leftArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 2000, 60, 7.5, 7.5, px3, elixirTimer);
+    leftArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px3, timer);
     leftArenaTowerE->setPos(340, 100);
     scene.addItem(leftArenaTowerE);
 
-    rightArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::All, 1.5, 2000, 60, 7.5, 7.5, px3, elixirTimer);
+    rightArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px3, timer);
     rightArenaTowerE->setPos(790, 100);
     scene.addItem(rightArenaTowerE);
 
@@ -145,9 +124,4 @@ void map1::arrangeCardDeck()
         cm->myCardDeck.at(i)->setPos(card[i]->pos().x(), card[i]->pos().y() + 10);
         scene.addItem(cm->myCardDeck[i]);
     }
-}
-
-void map1::incrementElixir()
-{
-    elixir->setValue(elixir->value() + 1);
 }

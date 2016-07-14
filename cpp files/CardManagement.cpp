@@ -22,69 +22,164 @@
 
 CardManagement::CardManagement(QGraphicsScene *s) : scene(s)
 {
-    setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
+    this->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
+    //this->setPos(200, 0);
+    //scene->addItem(this);
     timer = new QTimer();
     acceptedMouseButtons();
+
+    elixir = new QProgressBar();
+    elixir->setOrientation(Qt::Orientation::Vertical);
+    elixir->setTextDirection(QProgressBar::BottomToTop);
+    elixir->setMinimum(0);
+    elixir->setMaximum(10);
+    elixir->setFormat("%v");
+    elixir->setValue(5);
+    elixir->setStyleSheet("::chunk {"
+                                  "background-color: "
+                                  "qlineargradient(x0: 0, x2: 1, "
+                                  "stop: 0 red, stop: 0.3 red, "
+                                  "stop: 0.3 magenta, "
+                                  "stop: 0.7 cyan"
+                                  ")}");
+    elixir->setGeometry(160, 200, 40, 430);
+    scene->addWidget(elixir);
+
+    elixirTimer = new QTimer();
+    connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
+    //elixirTimer->start(4500);
 }
 
 CardManagement::~CardManagement() { }
 
-void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void CardManagement::incrementElixir()
 {
+    elixir->setValue(elixir->value() + 1);
+}
+
+void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+    bool canBePlaced = false;
     int i = 0;
-    bool t = true;
-    for( ; t && i < 4; i++)
-        if(myCardDeck[i]->isSelected)
-            t = false;
-    i--;
-    if(!t) {
+    for (i = 0; i < 4; i++)
+        if (myCardDeck[i]->isSelected)
+            break;
+    if (spc::cardNo == 1) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new LavaHound(QPixmap("1.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 2) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new IceWizard(QPixmap("4.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 3) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new Balloon(QPixmap("2.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 4) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new DarkPrince(QPixmap("5.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 5) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new HogRider(QPixmap("10.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 6) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new MinionHorde(QPixmap("3.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 7) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new Valkyrie(QPixmap("7.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 8) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new Miner(QPixmap("6.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 9) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new Witch(QPixmap("8.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 10) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new RoyalGiant(QPixmap("9.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 11) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new Mirror(QPixmap("11.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 12) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new Zap(QPixmap("12.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 13) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new Rage(QPixmap("13.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 14) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new InfernoTower(QPixmap("15.png"), timer));
+            canBePlaced = true;
+        }
+    }
+    else if (spc::cardNo == 15) {
+        if (myCardDeck[i]->elixirCost <= elixir->value()) {
+            elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
+            myCardDeck.push_back(new UsingFurnace(QPixmap("14.png"), timer));
+            canBePlaced = true;
+        }
+    }
+
+    if(!canBePlaced)
+        myCardDeck[i]->isSelected = false;
+    if(myCardDeck[i]->isSelected && canBePlaced){
         myCardDeck[i]->isSelected = false;
         myCardDeck[4]->setPos(myCardDeck[i]->pos());
-        scene->removeItem(myCardDeck.at(i));
+        scene->removeItem(myCardDeck[i]);
         scene->addItem(myCardDeck[4]);
-        if(event->pos().y() > 400)
-            myCardDeck.at(i)->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
-                                     event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
-        else
-            myCardDeck.at(i)->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
-                                     400 - myCardDeck.at(i)->boundingRect().center().y());
-        scene->addItem(myCardDeck.at(i));
-
-        //std::cout << spc::cardNo << std::endl;
-        if(spc::cardNo == 1)
-            myCardDeck.push_back(new LavaHound(QPixmap("1.png"), timer));
-        else if(spc::cardNo == 2)
-            myCardDeck.push_back(new IceWizard(QPixmap("4.png"), timer));
-        else if(spc::cardNo == 3)
-            myCardDeck.push_back(new Balloon(QPixmap("2.png"), timer));
-        else if(spc::cardNo == 4)
-            myCardDeck.push_back(new DarkPrince(QPixmap("5.png"), timer));
-        else if(spc::cardNo == 5)
-            myCardDeck.push_back(new HogRider(QPixmap("10.png"), timer));
-        else if(spc::cardNo == 6)
-            myCardDeck.push_back(new MinionHorde(QPixmap("3.png"), timer));
-        else if(spc::cardNo == 7)
-            myCardDeck.push_back(new Valkyrie(QPixmap("7.png"), timer));
-        else if(spc::cardNo == 8)
-            myCardDeck.push_back(new Miner(QPixmap("6.png"), timer));
-        else if(spc::cardNo == 9)
-            myCardDeck.push_back(new Witch(QPixmap("8.png"), timer));
-        else if(spc::cardNo == 10)
-            myCardDeck.push_back(new RoyalGiant(QPixmap("9.png"), timer));
-        else if(spc::cardNo == 11)
-            myCardDeck.push_back(new Mirror(QPixmap("11.png"), timer));
-        else if(spc::cardNo == 12)
-            myCardDeck.push_back(new Zap(QPixmap("12.png"), timer));
-        else if(spc::cardNo == 13)
-            myCardDeck.push_back(new Rage(QPixmap("13.png"), timer));
-        else if(spc::cardNo == 14)
-            myCardDeck.push_back(new InfernoTower(QPixmap("15.png"), timer));
-        else if(spc::cardNo == 15)
-            myCardDeck.push_back(new UsingFurnace(QPixmap("14.png"), timer));
-        //scene->addItem(myCardDeck.at(8));
-
+        myCardDeck[i]->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
+                              event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
+        scene->addItem(myCardDeck[i]);
         myCardDeck.swap(i, 4);
         myCardDeck.removeAt(4);
-        std::cout << myCardDeck.size() << std::endl;
     }
 }
