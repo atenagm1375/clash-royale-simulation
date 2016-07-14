@@ -11,9 +11,13 @@
 #include <QtWidgets/qgraphicsscene.h>
 #include <QGraphicsSceneMouseEvent>
 #include <QList>
+#include <QtWidgets/qprogressbar.h>
+#include <QGraphicsScene>
 #include "Card.h"
+#include "Tower.h"
 
-class MainWindow;
+class Card;
+class map1;
 
 class CardManagement : public QObject, public QGraphicsPixmapItem{
 
@@ -31,6 +35,18 @@ private:
 
     QGraphicsScene *scene;
     QTimer *timer;
+    QProgressBar *elixir;
+    QTimer *elixirTimer;
+    Tower *kingTower;
+    Tower *kingTowerE;
+    Tower *leftArenaTower;
+    Tower *rightArenaTower;
+    Tower *rightArenaTowerE;
+    Tower *leftArenaTowerE;
+
+public slots:
+
+    void incrementElixir();
 };
 
 
