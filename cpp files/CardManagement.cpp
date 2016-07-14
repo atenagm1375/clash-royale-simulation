@@ -57,7 +57,8 @@ void CardManagement::incrementElixir()
     elixir->setValue(elixir->value() + 1);
 }
 
-void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event) {
+void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
     bool canBePlaced = false;
     int i = 0;
     for (i = 0; i < 4; i++)
