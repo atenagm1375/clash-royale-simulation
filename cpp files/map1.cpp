@@ -20,9 +20,9 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     this->setScene(&scene);
 
     cm = new CardManagement(&scene);
-    cm->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
+    /*cm->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
     cm->setPos(200, 0);
-    scene.addItem(cm);
+    scene.addItem(cm);*/
 
     QPixmap stonePxmp("sources/379 copy.jpg");
     stone = new QGraphicsPixmapItem();
