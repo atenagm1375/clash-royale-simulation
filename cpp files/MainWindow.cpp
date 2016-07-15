@@ -482,6 +482,7 @@ void MainWindow::playGame()
     gamePaused = false;
     if(gameModeCode == 0) {
         m1->arrangeCardDeck();
+        m1->gameTimer->start(1000);
         m1->cm->elixirTimer->start(4000);
         QstackW->setCurrentWidget(m1);
     }

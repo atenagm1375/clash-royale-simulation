@@ -23,6 +23,7 @@ class CardManagement : public QObject, public QGraphicsPixmapItem{
 
     Q_OBJECT
     friend class MainWindow;
+    friend class map1;
 
 public:
 

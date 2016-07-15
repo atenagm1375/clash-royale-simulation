@@ -20,7 +20,6 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     this->setScene(&scene);
 
     cm = new CardManagement(&scene);
-    //cm->setPixmap(QPixmap("sources/grass1.jpg").scaled(800, 700));
     cm->setPos(200, 0);
     scene.addItem(cm);
 
@@ -79,6 +78,13 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     timeLabel->setGeometry(1000, 450, 200, 50);
     scene.addWidget(timeLabel);
 
+    isFinished = false;
+    second = 180;
+    isExtraTime = false;
+    setTime();
+    gameTimer = new QTimer();
+    connect(gameTimer, SIGNAL(timeout()), this, SLOT(timeManagement()));
+
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px, timer);
     kingTower->setPos(520, 550);
@@ -124,4 +130,38 @@ void map1::arrangeCardDeck()
         cm->myCardDeck.at(i)->setPos(card[i]->pos().x(), card[i]->pos().y() + 10);
         scene.addItem(cm->myCardDeck[i]);
     }
+}
+
+void map1::timeManagement()
+{
+    if(!isFinished){
+        second--;
+        setTime();
+        if(second == 0){
+            if(!isExtraTime && myScore->text() == enemyScore->text()) {
+                second = 60;
+                isExtraTime = true;
+            }
+            else {
+                isFinished = true;
+                gameTimer->stop();
+                cm->elixirTimer->stop();
+            }
+        }
+    }
+}
+
+void map1::setTime()
+{
+    int min = second / 60;
+    int sec = second % 60;
+    QString m;
+    m.setNum(min);
+    QString s;
+    s.setNum(sec);
+    if(sec < 10)
+        s = "0" + s;
+    timeLabel->setText(m + " : " + s);
+    timeLabel->setFont(QFont("serif", 30));
+    timeLabel->setAlignment(Qt::AlignCenter);
 }

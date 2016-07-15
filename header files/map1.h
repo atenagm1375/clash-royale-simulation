@@ -29,6 +29,9 @@ public:
 
 private:
 
+    bool isFinished;
+    int second;
+    bool isExtraTime;
     QGraphicsScene scene;
     CardManagement *cm;
     QGraphicsPixmapItem *stone;
@@ -40,6 +43,7 @@ private:
     QPushButton *pause;
     QLabel *card[4];
     QLabel *timeLabel;
+    QTimer *gameTimer;
     QTimer *timer;
     Tower *kingTower;
     Tower *kingTowerE;
@@ -47,6 +51,11 @@ private:
     Tower *rightArenaTower;
     Tower *rightArenaTowerE;
     Tower *leftArenaTowerE;
+    void setTime();
+
+public slots:
+
+    void timeManagement();
 };
 
 
