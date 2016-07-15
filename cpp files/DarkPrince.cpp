@@ -16,6 +16,6 @@ DarkPrince::~DarkPrince() { }
 
 void DarkPrince::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 4;
     spc::cardNo = 4;
 }

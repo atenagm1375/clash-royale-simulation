@@ -15,6 +15,6 @@ Balloon::~Balloon() { }
 
 void Balloon::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 3;
     spc::cardNo = 3;
 }

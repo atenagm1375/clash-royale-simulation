@@ -15,6 +15,6 @@ Witch::~Witch() { }
 
 void Witch::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 9;
     spc::cardNo = 9;
 }

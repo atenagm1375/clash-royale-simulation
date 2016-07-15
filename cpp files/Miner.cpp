@@ -15,6 +15,6 @@ Miner::~Miner() { }
 
 void Miner::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 8;
     spc::cardNo = 8;
 }

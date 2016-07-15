@@ -14,6 +14,6 @@ IceWizard::~IceWizard() { }
 
 void IceWizard::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 2;
     spc::cardNo = 2;
 }

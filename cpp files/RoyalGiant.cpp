@@ -14,6 +14,6 @@ RoyalGiant::~RoyalGiant() { }
 
 void RoyalGiant::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 10;
     spc::cardNo = 10;
 }

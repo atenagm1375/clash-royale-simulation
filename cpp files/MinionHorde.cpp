@@ -14,6 +14,6 @@ MinionHorde::~MinionHorde() { }
 
 void MinionHorde::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 6;
     spc::cardNo = 6;
 }

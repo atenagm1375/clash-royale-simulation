@@ -15,6 +15,6 @@ LavaHound::~LavaHound() { }
 
 void LavaHound::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 1;
     spc::cardNo = 1;
 }

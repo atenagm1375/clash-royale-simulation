@@ -14,6 +14,6 @@ HogRider::~HogRider() { }
 
 void HogRider::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 5;
     spc::cardNo = 5;
 }

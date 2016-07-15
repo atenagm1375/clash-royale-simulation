@@ -15,6 +15,6 @@ Zap::~Zap() { }
 
 void Zap::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 12;
     spc::cardNo = 12;
 }

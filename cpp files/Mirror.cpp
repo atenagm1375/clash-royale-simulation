@@ -14,6 +14,6 @@ Mirror::~Mirror() { }
 
 void Mirror::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 11;
     spc::cardNo = 11;
 }

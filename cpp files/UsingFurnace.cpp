@@ -17,6 +17,6 @@ UsingFurnace::~UsingFurnace() { }
 
 void UsingFurnace::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 15;
     spc::cardNo = 15;
 }

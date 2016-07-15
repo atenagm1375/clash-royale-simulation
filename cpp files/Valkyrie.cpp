@@ -14,6 +14,6 @@ Valkyrie::~Valkyrie() { }
 
 void Valkyrie::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 7;
     spc::cardNo = 7;
 }

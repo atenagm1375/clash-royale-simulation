@@ -15,6 +15,6 @@ Rage::~Rage() { }
 
 void Rage::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 13;
     spc::cardNo = 13;
 }

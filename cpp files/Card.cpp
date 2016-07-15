@@ -12,7 +12,6 @@ Card::Card(int tp, int trgt, double hs, int hp, int d, double r, double tr, int 
     elixirCost = cost;
     count = c;
     deployTime = dt;
-    isSelected = false;
     spc::cardNo = 0;
 
     //acceptedMouseButtons();

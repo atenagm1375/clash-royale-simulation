@@ -14,6 +14,6 @@ InfernoTower::~InfernoTower() { }
 
 void InfernoTower::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 14;
     spc::cardNo = 14;
 }

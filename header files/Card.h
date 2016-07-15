@@ -24,7 +24,7 @@ public:
     Card(int, int, double, int, int, double, double, int, int, int, double, QTimer *);
     ~Card();
     //void mousePressEvent(QGraphicsSceneMouseEvent *);
-    bool isSelected;
+    int id;
 
 protected:
 
