@@ -15,6 +15,7 @@ Object::Object(int tp, int trgt, double hs, int hp, int d, double r, double tr, 
     damage = d;
     range = r;
     territory = tr;
+    isMyTeam = true;
 }
 
 Object::~Object() { }

@@ -87,31 +87,44 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
 
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px, timer);
+    kingTower->isMyTeam = true;
     kingTower->setPos(520, 550);
     scene.addItem(kingTower);
 
     QPixmap *px1 = new QPixmap(QPixmap("sources/mainTower.png").scaled(150, 150));
     kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px1, timer);
+    kingTowerE->isMyTeam = false;
     kingTowerE->setPos(520, 0);
     scene.addItem(kingTowerE);
 
     QPixmap *px2 = new QPixmap(QPixmap("sources/arenaTower.png").scaled(100, 100));
     leftArenaTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px2, timer);
+    leftArenaTower->isMyTeam = true;
     leftArenaTower->setPos(340, 500);
     scene.addItem(leftArenaTower);
 
     rightArenaTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px2, timer);
+    rightArenaTower->isMyTeam = true;
     rightArenaTower->setPos(790, 500);
     scene.addItem(rightArenaTower);
 
     QPixmap *px3 = new QPixmap(QPixmap("sources/arenaTowerE.png").scaled(100, 100));
     leftArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px3, timer);
+    leftArenaTowerE->isMyTeam = false;
     leftArenaTowerE->setPos(340, 100);
     scene.addItem(leftArenaTowerE);
 
     rightArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px3, timer);
+    rightArenaTowerE->isMyTeam = false;
     rightArenaTowerE->setPos(790, 100);
     scene.addItem(rightArenaTowerE);
+
+    cm->objects->push_back(kingTower);
+    cm->objects->push_back(kingTowerE);
+    cm->objects->push_back(leftArenaTower);
+    cm->objects->push_back(rightArenaTower);
+    cm->objects->push_back(leftArenaTowerE);
+    cm->objects->push_back(rightArenaTowerE);
 
     this->verticalScrollBar()->blockSignals(true);
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -171,20 +184,12 @@ void map1::setTime()
 void map1::go(int i)
 {
     cm->myCardDeck[i]->initialization(cm->objects);
-    if(cm->myCardDeck[i]->pos().x() < 600) {
-        if (cm->myCardDeck[i]->type == spc::Type::AIRTROOP)
-            cm->myCardDeck[i]->move(leftArenaTowerE->pos().x(), leftArenaTowerE->pos().y() + 100);
-        else {
+    if(cm->myCardDeck[i]->pos().x() + cm->myCardDeck[i]->boundingRect().center().x() < 600) {
+        if (cm->myCardDeck[i]->type != spc::Type::AIRTROOP)
             cm->myCardDeck[i]->move(bridge1->pos().x(), bridge1->pos().y() + 100);
-            //cm->myCardDeck[i]->move(leftArenaTowerE->pos().x(), leftArenaTowerE->pos().y() + 100);
-        }
     }
     else{
-        if(cm->myCardDeck[i]->type == spc::Type::AIRTROOP)
-            cm->myCardDeck[i]->move(rightArenaTowerE->pos().x(), rightArenaTowerE->pos().y() + 100);
-        else{
-            cm->myCardDeck[i]->move(bridge2->pos().x(), bridge2->pos().y());
-            //cm->myCardDeck[i]->move(rightArenaTowerE->pos().x(), rightArenaTowerE->pos().y() + 100);
-        }
+        if(cm->myCardDeck[i]->type != spc::Type::AIRTROOP)
+            cm->myCardDeck[i]->move(bridge2->pos().x(), bridge2->pos().y() + 100);
     }
 }
