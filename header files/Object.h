@@ -11,6 +11,7 @@
 class Object : public QObject, public QGraphicsPixmapItem{
 
     Q_OBJECT
+    friend class map1;
 
 public:
 
@@ -27,6 +28,7 @@ protected:
     int damage;
     double range;
     double territory;
+    bool isMyTeam;
 };
 
 

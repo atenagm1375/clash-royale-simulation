@@ -48,6 +48,8 @@ CardManagement::CardManagement(QGraphicsScene *s) : scene(s)
     elixirTimer = new QTimer();
     connect(elixirTimer, SIGNAL(timeout()), this, SLOT(incrementElixir()));
     //elixirTimer->start(4500);
+
+    objects = new QList<Object *>();
 }
 
 CardManagement::~CardManagement() { }
@@ -190,7 +192,10 @@ void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
         scene->addItem(myCardDeck[4]);
         myCardDeck[i]->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
                               event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
+        myCardDeck[i]->setScale(0.6);
         scene->addItem(myCardDeck[i]);
+        objects->push_back(myCardDeck[i]);
+        emit moveForward(i);
         myCardDeck.swap(i, 4);
         myCardDeck.removeAt(4);
     }

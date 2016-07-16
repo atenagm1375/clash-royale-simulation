@@ -56,6 +56,7 @@ private:
 public slots:
 
     void timeManagement();
+    void go(int);
 };
 
 

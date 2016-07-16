@@ -118,6 +118,8 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     this->horizontalScrollBar()->blockSignals(true);
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
+    connect(cm, SIGNAL(moveForward(int)), this, SLOT(go(int)));
+
     this->update();
     this->show();
 }
@@ -164,4 +166,25 @@ void map1::setTime()
     timeLabel->setText(m + " : " + s);
     timeLabel->setFont(QFont("serif", 30));
     timeLabel->setAlignment(Qt::AlignCenter);
+}
+
+void map1::go(int i)
+{
+    cm->myCardDeck[i]->initialization(cm->objects);
+    if(cm->myCardDeck[i]->pos().x() < 600) {
+        if (cm->myCardDeck[i]->type == spc::Type::AIRTROOP)
+            cm->myCardDeck[i]->move(leftArenaTowerE->pos().x(), leftArenaTowerE->pos().y() + 100);
+        else {
+            cm->myCardDeck[i]->move(bridge1->pos().x(), bridge1->pos().y() + 100);
+            //cm->myCardDeck[i]->move(leftArenaTowerE->pos().x(), leftArenaTowerE->pos().y() + 100);
+        }
+    }
+    else{
+        if(cm->myCardDeck[i]->type == spc::Type::AIRTROOP)
+            cm->myCardDeck[i]->move(rightArenaTowerE->pos().x(), rightArenaTowerE->pos().y() + 100);
+        else{
+            cm->myCardDeck[i]->move(bridge2->pos().x(), bridge2->pos().y());
+            //cm->myCardDeck[i]->move(rightArenaTowerE->pos().x(), rightArenaTowerE->pos().y() + 100);
+        }
+    }
 }

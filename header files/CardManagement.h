@@ -32,6 +32,7 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *);
     QList<Card *> myCardDeck;
     QList<Card *> allCards;
+    QList<Object *> *objects;
 
 protected:
 
@@ -43,6 +44,10 @@ protected:
 public slots:
 
     void incrementElixir();
+
+signals:
+
+    void moveForward(int);
 };
 
 
