@@ -184,12 +184,5 @@ void map1::setTime()
 void map1::go(int i)
 {
     cm->myCardDeck[i]->initialization(cm->objects);
-    if(cm->myCardDeck[i]->pos().x() + cm->myCardDeck[i]->boundingRect().center().x() < 600) {
-        if (cm->myCardDeck[i]->type != spc::Type::AIRTROOP)
-            cm->myCardDeck[i]->move(bridge1->pos().x(), bridge1->pos().y() + 100);
-    }
-    else{
-        if(cm->myCardDeck[i]->type != spc::Type::AIRTROOP)
-            cm->myCardDeck[i]->move(bridge2->pos().x(), bridge2->pos().y() + 100);
-    }
+    cm->myCardDeck[i]->moveManagement();
 }

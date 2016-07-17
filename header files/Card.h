@@ -40,6 +40,7 @@ protected:
     QList<Fire *> fires;
     bool isMoving;
     bool shouldStop;
+    bool canSee;
     double x1;
     double x2;
     double y1;
@@ -49,6 +50,8 @@ protected:
     double dy;
 
     void move(double, double);
+    void moveManagement();
+    bool isInTerritory(Object *);
 
 public slots:
 

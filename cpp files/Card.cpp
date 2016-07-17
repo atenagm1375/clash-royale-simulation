@@ -16,6 +16,7 @@ Card::Card(int tp, int trgt, double hs, int hp, int d, double r, double tr, int 
     spc::cardNo = 0;
     isMoving = false;
     shouldStop = false;
+    canSee = false;
 }
 
 Card::~Card() { }
@@ -79,6 +80,58 @@ void Card::changePosition()
             isMoving = false;
             moveTimer->stop();
             delete moveTimer;
+            canSee = false;
         }
     }
+}
+
+void Card::moveManagement()
+{
+    if(!isMoving){
+        if(this->isMyTeam){
+            if(this->pos().x() + this->boundingRect().center().x() <= 600)
+                move(357.5, 350);
+            else
+                move(810, 350);
+        }
+    }
+    if(!canSee){
+        if(this->target == spc::Target::AirGround)
+            for(int i = 0; i < objects->size(); i++) {
+                if (objects->at(i)->isMyTeam != this->isMyTeam && objects->at(i)->type != spc::Type::SPELL &&
+                    objects->at(i)->isAlive && this->isInTerritory(objects->at(i))) {
+                    move(objects->at(i)->pos().x() + boundingRect().center().x(),
+                         objects->at(i)->pos().y() + boundingRect().bottomRight().y());
+                    canSee = true;
+                }
+            }
+        else if(this->target == spc::Target::Ground)
+            for(int i = 0; i < objects->size(); i++) {
+                if (objects->at(i)->isMyTeam != this->isMyTeam && (objects->at(i)->type == spc::Type::BUILDING
+                                                                   || objects->at(i)->type == spc::Type::GROUNDTROOP) &&
+                    objects->at(i)->isAlive && this->isInTerritory(objects->at(i))) {
+                    move(objects->at(i)->pos().x() + boundingRect().center().x(),
+                         objects->at(i)->pos().y() + boundingRect().bottomRight().y());
+                    canSee = true;
+                }
+            }
+        else if(this->target == spc::Target::Building)
+            for(int i = 0; i < objects->size(); i++)
+                if(objects->at(i)->isMyTeam != this->isMyTeam && objects->at(i)->type == spc::Type::BUILDING &&
+                   objects->at(i)->isAlive && this->isInTerritory(objects->at(i))){
+                    move(objects->at(i)->pos().x() + boundingRect().center().x(),
+                         objects->at(i)->pos().y() + boundingRect().bottomRight().y());
+                    canSee = true;
+                }
+    }
+}
+
+bool Card::isInTerritory(Object *obj)
+{
+    double myX = this->pos().x() + this->boundingRect().center().x();
+    double myY = this->pos().y() + this->boundingRect().center().y();
+    double objX = obj->pos().x() + obj->boundingRect().center().x();
+    double objY = obj->pos().y() + obj->boundingRect().center().y();
+
+    return (myX - objX) * (myX - objX) + (myY - objY) * (myY - objY) <= territory * territory;
 }

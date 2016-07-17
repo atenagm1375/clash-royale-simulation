@@ -19,8 +19,6 @@ public:
     Object(int, int, double, int, int, double, double, QTimer *);
     ~Object();
 
-protected:
-
     int type;
     int target;
     double hitSpeed;
@@ -29,6 +27,7 @@ protected:
     double range;
     double territory;
     bool isMyTeam;
+    bool isAlive;
 };
 
 
