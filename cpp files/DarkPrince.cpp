@@ -10,6 +10,7 @@ DarkPrince::DarkPrince(QPixmap pic, QTimer *timer)
     this->setPixmap(pic);
     shieldHitPoint = 200;
     areaDamage = 135;
+    id = 4;
 }
 
 DarkPrince::~DarkPrince() { }

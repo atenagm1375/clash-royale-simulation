@@ -8,6 +8,7 @@ RoyalGiant::RoyalGiant(QPixmap pic, QTimer *timer)
         : Card(spc::Type::GROUNDTROOP, spc::Target::Building, 1.5, 1200, 78, 6.5, 6.5, spc::Speed::Slow, 6, 1, 1, timer)
 {
     this->setPixmap(pic);
+    id = 10;
 }
 
 RoyalGiant::~RoyalGiant() { }

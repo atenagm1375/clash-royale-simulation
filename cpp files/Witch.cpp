@@ -9,6 +9,7 @@ Witch::Witch(QPixmap pic, QTimer *timer)
 {
     this->setPixmap(pic);
     skeleton = new Skeleton(QPixmap("sources/Skeletons.png"), timer);
+    id = 9;
 }
 
 Witch::~Witch() { }

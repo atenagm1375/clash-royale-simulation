@@ -62,6 +62,43 @@ void CardManagement::incrementElixir()
 void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     bool canBePlaced = false;
+    int i = getIndex(canBePlaced);
+
+    if(canBePlaced){
+        myCardDeck[4]->setPos(myCardDeck[i]->pos());
+        scene->removeItem(myCardDeck[i]);
+        scene->addItem(myCardDeck[4]);
+        if(myCardDeck[i]->id == 11) {
+            myCardDeck.swap(i, 7);
+            spc::cardNo = myCardDeck[i]->id;
+            getIndex(canBePlaced);
+        }
+        if(myCardDeck[i]->id == 6){
+            for(int j = 0; j < myCardDeck[i]->count; j++){
+                MinionHorde *m = new MinionHorde(QPixmap("sources/3.png"), timer);
+                m->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200 + 6 * (j - 3),
+                          event->pos().y() - myCardDeck.at(i)->boundingRect().center().y() + 6 * (3 - j));
+                m->setScale(0.6);
+                scene->addItem(m);
+                objects->push_back(m);
+                allCards.push_back(m);
+            }
+        }
+        else {
+            myCardDeck[i]->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
+                                  event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
+            myCardDeck[i]->setScale(0.6);
+            scene->addItem(myCardDeck[i]);
+            objects->push_back(myCardDeck[i]);
+            allCards.push_back(myCardDeck[i]);
+        }
+        emit moveForward(i);
+        myCardDeck.swap(i, 4);
+        myCardDeck.removeAt(4);
+    }
+}
+int CardManagement::getIndex(bool &canBePlaced)
+{
     int i = 0;
     for( ; i < 4; i++) {
         if (myCardDeck[i]->id == spc::cardNo && spc::cardNo == 1) {
@@ -145,9 +182,9 @@ void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
             break;
         }
         else if (myCardDeck[i]->id == spc::cardNo && spc::cardNo == 11) {
-            if (myCardDeck[i]->elixirCost <= elixir->value()) {
-                elixir->setValue(elixir->value() - myCardDeck[i]->elixirCost);
-                myCardDeck.push_back(new Mirror(QPixmap("sources/11.png"), timer));
+            if (myCardDeck.back()->elixirCost + 1 <= elixir->value()) {
+                elixir->setValue(elixir->value() - myCardDeck.back()->elixirCost - 1);
+                //myCardDeck.push_back(new Mirror(QPixmap("sources/11.png"), timer));
                 canBePlaced = true;
             }
             break;
@@ -185,18 +222,5 @@ void CardManagement::mousePressEvent(QGraphicsSceneMouseEvent *event)
             break;
         }
     }
-
-    if(canBePlaced){
-        myCardDeck[4]->setPos(myCardDeck[i]->pos());
-        scene->removeItem(myCardDeck[i]);
-        scene->addItem(myCardDeck[4]);
-        myCardDeck[i]->setPos(event->pos().x() - myCardDeck.at(i)->boundingRect().center().x() + 200,
-                              event->pos().y() - myCardDeck.at(i)->boundingRect().center().y());
-        myCardDeck[i]->setScale(0.6);
-        scene->addItem(myCardDeck[i]);
-        objects->push_back(myCardDeck[i]);
-        emit moveForward(i);
-        myCardDeck.swap(i, 4);
-        myCardDeck.removeAt(4);
-    }
+    return i;
 }

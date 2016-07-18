@@ -8,6 +8,7 @@ IceWizard::IceWizard(QPixmap pic, QTimer *timer)
         : Card(spc::Type::GROUNDTROOP, spc::Target::AirGround, 1.2, 700, 63, 6, 6, spc::Speed::Medium, 3, 1, 1, timer)
 {
     this->setPixmap(pic);
+    id = 2;
 }
 
 IceWizard::~IceWizard() { }

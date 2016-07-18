@@ -9,6 +9,7 @@ LavaHound::LavaHound(QPixmap pic, QTimer *timer)
 {
     this->setPixmap(pic);
     lavaPups = new LavaPups(QPixmap("sources/firePups.png"), timer);
+    id = 1;
 }
 
 LavaHound::~LavaHound() { }

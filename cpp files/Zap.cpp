@@ -9,6 +9,7 @@ Zap::Zap(QPixmap pic, QTimer *timer)
 {
     this->setPixmap(pic);
     crownTowerDamage = 32;
+    id = 12;
 }
 
 Zap::~Zap() { }

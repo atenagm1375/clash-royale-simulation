@@ -9,6 +9,7 @@ Rage::Rage(QPixmap pic, QTimer *timer)
 {
     this->setPixmap(pic);
     duration = 8;
+    id = 13;
 }
 
 Rage::~Rage() { }

@@ -11,6 +11,7 @@ UsingFurnace::UsingFurnace(QPixmap pic, QTimer *timer)
     fireSpirits = new FireSpirits(QPixmap("sources/fireSpirits.png"), timer);
     lifeTime = 50;
     spawnSpeed = 10;
+    id = 15;
 }
 
 UsingFurnace::~UsingFurnace() { }

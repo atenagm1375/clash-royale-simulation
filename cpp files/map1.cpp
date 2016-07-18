@@ -183,6 +183,8 @@ void map1::setTime()
 
 void map1::go(int i)
 {
-    cm->myCardDeck[i]->initialization(cm->objects);
-    cm->myCardDeck[i]->moveManagement();
+    for(int j = 0; j < cm->myCardDeck[i]->count; j++) {
+        cm->allCards[cm->allCards.size() - 1 - j]->initialization(cm->objects);
+        cm->allCards[cm->allCards.size() - 1 - j]->moveManagement();
+    }
 }

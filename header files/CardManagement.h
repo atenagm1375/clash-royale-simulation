@@ -41,6 +41,10 @@ protected:
     QProgressBar *elixir;
     QTimer *elixirTimer;
 
+private:
+
+    int getIndex(bool &);
+
 public slots:
 
     void incrementElixir();

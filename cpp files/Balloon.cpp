@@ -9,6 +9,7 @@ Balloon::Balloon(QPixmap pic, QTimer *timer)
 {
     this->setPixmap(pic);
     deathDamage = 100;
+    id = 3;
 }
 
 Balloon::~Balloon() { }

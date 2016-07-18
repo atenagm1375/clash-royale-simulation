@@ -8,6 +8,7 @@ Mirror::Mirror(QPixmap pic, QTimer *timer)
         : Card(spc::Type::SPELL, spc::Target::what, 0, 0, 0, 0, 0, spc::Speed::NONE, 0, 0, 0, timer)
 {
     this->setPixmap(pic);
+    id = 11;
 }
 
 Mirror::~Mirror() { }

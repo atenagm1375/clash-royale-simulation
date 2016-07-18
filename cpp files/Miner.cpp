@@ -9,6 +9,7 @@ Miner::Miner(QPixmap pic, QTimer *timer)
 {
     this->setPixmap(pic);
     crownTowerDamage = 64;
+    id = 8;
 }
 
 Miner::~Miner() { }

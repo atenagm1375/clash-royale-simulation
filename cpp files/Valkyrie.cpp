@@ -8,6 +8,7 @@ Valkyrie::Valkyrie(QPixmap pic, QTimer *timer)
         : Card(spc::Type::GROUNDTROOP, spc::Target::Ground, 1.5, 880, 120, 1, 2, spc::Speed::Medium, 4, 1, 1, timer)
 {
     this->setPixmap(pic);
+    id = 7;
 }
 
 Valkyrie::~Valkyrie() { }
