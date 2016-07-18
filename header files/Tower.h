@@ -17,9 +17,7 @@ public:
     Tower(int, int, double, int, int, double, double, QPixmap *, QTimer *);
     ~Tower();
 
-private:
-
-
+    bool isKingTower;
 };
 
 

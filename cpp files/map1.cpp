@@ -88,12 +88,14 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px, timer);
     kingTower->isMyTeam = true;
+    kingTower->isKingTower = true;
     kingTower->setPos(520, 550);
     scene.addItem(kingTower);
 
     QPixmap *px1 = new QPixmap(QPixmap("sources/mainTower.png").scaled(150, 150));
     kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px1, timer);
     kingTowerE->isMyTeam = false;
+    kingTowerE->isKingTower = true;
     kingTowerE->setPos(520, 0);
     scene.addItem(kingTowerE);
 
@@ -185,6 +187,7 @@ void map1::go(int i)
 {
     for(int j = 0; j < cm->myCardDeck[i]->count; j++) {
         cm->allCards[cm->allCards.size() - 1 - j]->initialization(cm->objects);
-        cm->allCards[cm->allCards.size() - 1 - j]->moveManagement();
+        connect(this, SIGNAL(moveCall()), cm->allCards[cm->allCards.size() - 1 - j], SLOT(moveControl()));
+        emit moveCall();
     }
 }

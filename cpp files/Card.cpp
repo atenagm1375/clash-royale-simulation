@@ -40,8 +40,8 @@ void Card::initialization(QList<Object *> *objs)
 void Card::move(double x, double y)
 {
     if(isMoving){
+        disconnect(moveTimer, SIGNAL(timeout()), this, SLOT(changePosition()));
         moveTimer->stop();
-        delete moveTimer;
     }
 
     x1 = this->pos().x();
@@ -68,6 +68,7 @@ void Card::move(double x, double y)
     moveTimer = new QTimer();
     moveTimer->start(30);
     connect(moveTimer, SIGNAL(timeout()), this, SLOT(changePosition()));
+    isMoving = true;
 }
 
 void Card::changePosition()
@@ -79,7 +80,6 @@ void Card::changePosition()
         else{
             isMoving = false;
             moveTimer->stop();
-            delete moveTimer;
             canSee = false;
         }
     }
@@ -89,10 +89,14 @@ void Card::moveManagement()
 {
     if(!isMoving){
         if(this->isMyTeam){
-            if(this->pos().x() + this->boundingRect().center().x() <= 600)
-                move(357.5, 350);
+            if(this->pos().y() + this->boundingRect().center().y() > 400) {
+                if (this->pos().x() + this->boundingRect().center().x() <= 600)
+                    move(357.5, 350);
+                else
+                    move(810, 350);
+            }
             else
-                move(810, 350);
+                move(x(), 200);
         }
     }
     if(!canSee){
@@ -134,4 +138,11 @@ bool Card::isInTerritory(Object *obj)
     double objY = obj->pos().y() + obj->boundingRect().center().y();
 
     return (myX - objX) * (myX - objX) + (myY - objY) * (myY - objY) <= territory * territory;
+}
+
+void Card::moveControl()
+{
+    timer = new QTimer();
+    timer->start(deployTime * 1000);
+    connect(timer, SIGNAL(timeout()), this, SLOT(moveManagement()));
 }

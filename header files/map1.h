@@ -57,6 +57,10 @@ public slots:
 
     void timeManagement();
     void go(int);
+
+    signals:
+
+    void moveCall();
 };
 
 

@@ -8,6 +8,7 @@ Tower::Tower(int tp, int trgt, double hs, int hp, int d, double r, double tr, QP
             Object(tp, trgt, hs, hp, d, r, tr, timer)
 {
     this->setPixmap(*pic);
+    isKingTower = false;
 }
 
 Tower::~Tower() { }

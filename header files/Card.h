@@ -48,14 +48,16 @@ protected:
     double m;
     double dx;
     double dy;
+    QTimer *timer;
 
     void move(double, double);
-    void moveManagement();
     bool isInTerritory(Object *);
 
 public slots:
 
     void changePosition();
+    void moveManagement();
+    void moveControl();
 };
 
 
