@@ -497,6 +497,21 @@ void MainWindow::pauseGame()
     if(gameModeCode == 0){
         m1->gameTimer->stop();
         m1->cm->elixirTimer->stop();
+        for(int i = 0; i < m1->cm->objects->size(); i++){
+            if(m1->cm->objects->at(i)->isAlive){
+                if(dynamic_cast<Card *>(m1->cm->objects->at(i)) != NULL){
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->moveTimer->stop();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->attackTimer->stop();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->checkTimer->stop();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->fireCheckTimer->stop();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->timer->stop();
+                }
+                else if(dynamic_cast<Tower *>(m1->cm->objects->at(i)) != NULL){
+                    dynamic_cast<Tower *>(m1->cm->objects->at(i))->attackTimer->stop();
+                    dynamic_cast<Tower *>(m1->cm->objects->at(i))->fireCheckTimer->stop();
+                }
+            }
+        }
     }
 }
 
@@ -514,6 +529,21 @@ void MainWindow::unPause()
         QstackW->setCurrentWidget(m1);
         m1->gameTimer->start();
         m1->cm->elixirTimer->start();
+        for(int i = 0; i < m1->cm->objects->size(); i++){
+            if(m1->cm->objects->at(i)->isAlive){
+                if(dynamic_cast<Card *>(m1->cm->objects->at(i)) != NULL){
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->moveTimer->start();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->attackTimer->start();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->checkTimer->start();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->fireCheckTimer->start();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->timer->start();
+                }
+                else if(dynamic_cast<Tower *>(m1->cm->objects->at(i)) != NULL){
+                    dynamic_cast<Tower *>(m1->cm->objects->at(i))->attackTimer->start();
+                    dynamic_cast<Tower *>(m1->cm->objects->at(i))->fireCheckTimer->start();
+                }
+            }
+        }
     }
     else
         QstackW->setCurrentWidget(m2);

@@ -22,6 +22,7 @@ class Card : public Object{
     friend class CardManagement;
     friend class Tower;
     friend class map1;
+    friend class MainWindow;
 
 public:
 

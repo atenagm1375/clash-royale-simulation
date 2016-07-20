@@ -15,6 +15,7 @@ class Tower : public Object{
 
     Q_OBJECT
     friend class Card;
+    friend class MainWindow;
 
 public:
 
