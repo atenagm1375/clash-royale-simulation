@@ -8,6 +8,7 @@
 
 #include <QtWidgets/qwidget.h>
 #include <QTimer>
+#include <QGraphicsScene>
 #include "Object.h"
 #include "Specifications.h"
 #include "Fire.h"
@@ -19,6 +20,7 @@ class Card : public Object{
 
     Q_OBJECT
     friend class CardManagement;
+    friend class Tower;
     friend class map1;
 
 public:
@@ -26,7 +28,7 @@ public:
     Card(int, int, double, int, int, double, double, int, int, int, double, QTimer *);
     ~Card();
     int id;
-    void initialization(QList<Object *> *);
+    void initialization(QList<Object *> *, QGraphicsScene *);
 
 protected:
 
@@ -48,16 +50,30 @@ protected:
     double m;
     double dx;
     double dy;
+    int second;
     QTimer *timer;
+    QTimer *checkTimer;
+    QTimer *attackTimer;
+    QTimer *fireCheckTimer;
+    QTimer *bloodTimer;
+    QGraphicsScene *scene;
 
     void move(double, double);
     bool isInTerritory(Object *);
+    bool isInRange(Object *);
+    void attack(Object *);
+    void damaged(double);
+    void shoot(double, double);
+    void killCard();
 
 public slots:
 
     void changePosition();
     void moveManagement();
     void moveControl();
+    void fireCheck();
+    void attackRange();
+    void vanish();
 };
 
 

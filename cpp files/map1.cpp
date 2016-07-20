@@ -46,16 +46,20 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     bridge2->setPos(800, 300);
     scene.addItem(bridge2);
 
-    enemyScore = new QLabel("0");
+    enemyScoreValue = 0;
+    enemyScore = new QLabel();
     enemyScore->setFont(QFont("serif", 25, QFont::Bold));
     enemyScore->setGeometry(50, 100, 25, 50);
     enemyScore->setStyleSheet("QLabel { background : red; }");
+    enemyScore->setNum(enemyScoreValue);
     scene.addWidget(enemyScore);
 
-    myScore = new QLabel("0");
+    myScoreValue = 0;
+    myScore = new QLabel();
     myScore->setFont(QFont("serif", 25, QFont::Bold));
     myScore->setGeometry(1100, 100, 25, 50);
     myScore->setStyleSheet("QLabel { background : cyan; }");
+    myScore->setNum(myScoreValue);
     scene.addWidget(myScore);
 
     pause = new QPushButton("PAUSE");
@@ -89,6 +93,7 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px, timer);
     kingTower->isMyTeam = true;
     kingTower->isKingTower = true;
+    kingTower->initialization(cm->objects, &scene);
     kingTower->setPos(520, 550);
     scene.addItem(kingTower);
 
@@ -96,28 +101,33 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     kingTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px1, timer);
     kingTowerE->isMyTeam = false;
     kingTowerE->isKingTower = true;
+    kingTowerE->initialization(cm->objects, &scene);
     kingTowerE->setPos(520, 0);
     scene.addItem(kingTowerE);
 
     QPixmap *px2 = new QPixmap(QPixmap("sources/arenaTower.png").scaled(100, 100));
     leftArenaTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px2, timer);
     leftArenaTower->isMyTeam = true;
+    leftArenaTower->initialization(cm->objects, &scene);
     leftArenaTower->setPos(340, 500);
     scene.addItem(leftArenaTower);
 
     rightArenaTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px2, timer);
     rightArenaTower->isMyTeam = true;
+    rightArenaTower->initialization(cm->objects, &scene);
     rightArenaTower->setPos(790, 500);
     scene.addItem(rightArenaTower);
 
     QPixmap *px3 = new QPixmap(QPixmap("sources/arenaTowerE.png").scaled(100, 100));
     leftArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px3, timer);
     leftArenaTowerE->isMyTeam = false;
+    leftArenaTowerE->initialization(cm->objects, &scene);
     leftArenaTowerE->setPos(340, 100);
     scene.addItem(leftArenaTowerE);
 
     rightArenaTowerE = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 2000, 60, 7.5, 7.5, px3, timer);
     rightArenaTowerE->isMyTeam = false;
+    rightArenaTowerE->initialization(cm->objects, &scene);
     rightArenaTowerE->setPos(790, 100);
     scene.addItem(rightArenaTowerE);
 
@@ -154,6 +164,32 @@ void map1::timeManagement()
     if(!isFinished){
         second--;
         setTime();
+        for(int i = 0; i < cm->objects->size(); i++)
+            if(!cm->objects->at(i)->isAlive){
+                if(dynamic_cast<Tower *>(cm->objects->at(i)) != NULL &&
+                        dynamic_cast<Tower *>(cm->objects->at(i))->isKingTower){
+                    if(cm->objects->at(i)->isMyTeam){
+                        enemyScoreValue += 2;
+                        enemyScore->setNum(enemyScoreValue);
+                    }
+                    else{
+                        myScoreValue += 2;
+                        myScore->setNum(myScoreValue);
+                    }
+                }
+                else if(dynamic_cast<Tower *>(cm->objects->at(i)) != NULL){
+                    if(cm->objects->at(i)->isMyTeam){
+                        enemyScoreValue++;
+                        enemyScore->setNum(enemyScoreValue);
+                    }
+                    else {
+                        myScoreValue++;
+                        myScore->setNum(myScoreValue);
+                    }
+                }
+                delete cm->objects->at(i);
+                cm->objects->removeAt(i);
+            }
         if(second == 0){
             if(!isExtraTime && myScore->text() == enemyScore->text()) {
                 second = 60;
@@ -186,7 +222,7 @@ void map1::setTime()
 void map1::go(int i)
 {
     for(int j = 0; j < cm->myCardDeck[i]->count; j++) {
-        cm->allCards[cm->allCards.size() - 1 - j]->initialization(cm->objects);
+        cm->allCards[cm->allCards.size() - 1 - j]->initialization(cm->objects, &scene);
         connect(this, SIGNAL(moveCall()), cm->allCards[cm->allCards.size() - 1 - j], SLOT(moveControl()));
         emit moveCall();
     }

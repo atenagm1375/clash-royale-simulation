@@ -494,6 +494,10 @@ void MainWindow::pauseGame()
 {
     gamePaused = true;
     QstackW->setCurrentWidget(pause);
+    if(gameModeCode == 0){
+        m1->gameTimer->stop();
+        m1->cm->elixirTimer->stop();
+    }
 }
 
 void MainWindow::quitGame()
@@ -506,8 +510,11 @@ void MainWindow::quitGame()
 void MainWindow::unPause()
 {
     gamePaused = false;
-    if(gameModeCode == 0)
+    if(gameModeCode == 0) {
         QstackW->setCurrentWidget(m1);
+        m1->gameTimer->start();
+        m1->cm->elixirTimer->start();
+    }
     else
         QstackW->setCurrentWidget(m2);
 }

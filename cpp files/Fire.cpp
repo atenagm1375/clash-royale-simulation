@@ -17,15 +17,15 @@ Fire::Fire(double x, double y, double xx, double yy, int type)
 
     if(bulType == spc::fireType::blueFire){
         pic = new QPixmap("sources/blueFire.png");
-        this->setPixmap(pic->scaled(5, 5));
+        this->setPixmap(pic->scaled(10, 10));
     }
     else if(bulType == spc::fireType::greenFire){
         pic = new QPixmap("sources/greenFire.png");
-        this->setPixmap(pic->scaled(5, 5));
+        this->setPixmap(pic->scaled(10, 10));
     }
     else{
-        pic = new QPixmap(pic->scaled(5, 5));
-        this->setPixmap(pic->scaled(5, 5));
+        pic = new QPixmap("sources/redFire.png");
+        this->setPixmap(pic->scaled(10, 10));
     }
 
     if(x1 == x2){
@@ -59,7 +59,7 @@ void Fire::changePosition()
 {
     if((this->pos().x() - x1) * (this->pos().x() - x2) <= 0 &&
        (this->pos().y() - y1) * (this->pos().y() - y2) <= 0)
-        this->setPos(x1 + dx, y1 + dy);
+        this->moveBy(dx, dy);
     else{
         timer->stop();
         isAlive = false;

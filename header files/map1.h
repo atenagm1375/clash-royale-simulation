@@ -32,6 +32,8 @@ private:
     bool isFinished;
     int second;
     bool isExtraTime;
+    int myScoreValue;
+    int enemyScoreValue;
     QGraphicsScene scene;
     CardManagement *cm;
     QGraphicsPixmapItem *stone;

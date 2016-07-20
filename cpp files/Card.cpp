@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "header files/Card.h"
+#include <header files/Tower.h>
 
 int spc::cardNo;
 Card::Card(int tp, int trgt, double hs, int hp, int d, double r, double tr, int spd, int cost, int c, double dt, QTimer *timer)
@@ -21,9 +22,10 @@ Card::Card(int tp, int trgt, double hs, int hp, int d, double r, double tr, int 
 
 Card::~Card() { }
 
-void Card::initialization(QList<Object *> *objs)
+void Card::initialization(QList<Object *> *objs, QGraphicsScene *s)
 {
     objects = objs;
+    scene = s;
 
     if(speed == spc::Speed::NONE)
         speedValue = 0;
@@ -35,6 +37,14 @@ void Card::initialization(QList<Object *> *objs)
         speedValue = 7;
     else
         speedValue = 10;
+
+    fireCheckTimer = new QTimer();
+    fireCheckTimer->start(hitSpeed * 1000);
+    connect(fireCheckTimer, SIGNAL(timeout()), this, SLOT(fireCheck()));
+
+    attackTimer = new QTimer();
+    attackTimer->start(hitSpeed * 1000);
+    connect(attackTimer, SIGNAL(timeout()), this, SLOT(attackRange()));
 }
 
 void Card::move(double x, double y)
@@ -145,4 +155,112 @@ void Card::moveControl()
     timer = new QTimer();
     timer->start(deployTime * 1000);
     connect(timer, SIGNAL(timeout()), this, SLOT(moveManagement()));
+
+    checkTimer = new QTimer();
+    checkTimer->start(deployTime * 1000);
+    connect(checkTimer, SIGNAL(timeout()), this, SLOT(attackRange()));
+}
+
+void Card::fireCheck()
+{
+    for(int i = 0; i < fires.size(); i++)
+        if(!fires[i]->isAlive){
+            scene->removeItem(fires[i]);
+            delete fires[i];
+            fires.removeAt(i);
+        }
+}
+
+void Card::attackRange()
+{
+    if(isAlive){
+        if(this->target == spc::Target::Building) {
+            for (int i = 0; i < objects->size(); i++)
+                if (this->isMyTeam != objects->at(i)->isMyTeam && objects->at(i)->isAlive &&
+                    objects->at(i)->type == spc::Type::BUILDING && this->isInRange(objects->at(i))) {
+                    attack(objects->at(i));
+                    shouldStop = true;
+                    return;
+                }
+            shouldStop = false;
+        }
+        else if(this->target == spc::Target::Ground){
+            for(int i = 0; i < objects->size(); i++)
+                if(this->isMyTeam != objects->at(i)->isMyTeam && objects->at(i)->isAlive &&
+                        (objects->at(i)->type == spc::Type::BUILDING || objects->at(i)->type == spc::Type::GROUNDTROOP)
+                        && this->isInRange(objects->at(i))){
+                    attack(objects->at(i));
+                    shouldStop = true;
+                    return;
+                }
+            shouldStop = false;
+        }
+        else if(this->target == spc::Target::AirGround){
+            for(int i = 0; i < objects->size(); i++)
+                if(this->isMyTeam != objects->at(i)->isMyTeam && objects->at(i)->isAlive &&
+                        objects->at(i)->type != spc::Type::SPELL && this->isInRange(objects->at(i))){
+                    attack(objects->at(i));
+                    shouldStop = true;
+                    return;
+                }
+            shouldStop = false;
+        }
+    }
+}
+
+bool Card::isInRange(Object *obj)
+{
+    double myX = this->pos().x() + this->boundingRect().center().x();
+    double myY = this->pos().y() + this->boundingRect().center().y();
+    double objX = obj->pos().x() + obj->boundingRect().center().x();
+    double objY = obj->pos().y() + obj->boundingRect().center().y();
+
+    return (myX - objX) * (myX - objX) + (myY - objY) * (myY - objY) <= range * range;
+}
+
+void Card::attack(Object *obj)
+{
+    if(dynamic_cast<Tower *>(obj) != NULL)
+        dynamic_cast<Tower *>(obj)->damaged(this->damage);
+    else
+        dynamic_cast<Card *>(obj)->damaged(this->damage);
+
+    shoot(obj->pos().x() + obj->boundingRect().center().x(), obj->pos().y() + obj->boundingRect().center().y());
+}
+
+void Card::damaged(double d)
+{
+    if(this->hitPoints > d)
+        this->hitPoints -= d;
+    else
+        killCard();
+}
+
+void Card::shoot(double x, double y)
+{
+    fires.push_back(new Fire(this->pos().x() + this->boundingRect().center().x(),
+                             this->pos().y() + this->boundingRect().center().y(), x, y, spc::fireType::redFire));
+    scene->addItem(fires.back());
+    fires.back()->shoot();
+}
+
+void Card::killCard()
+{
+    this->setPixmap(QPixmap("sources/blood.png").scaled(40, 40));
+    this->isAlive = false;
+    second = 0;
+
+    bloodTimer = new QTimer();
+    bloodTimer->start(1000);
+    connect(bloodTimer, SIGNAL(timeout()), this, SLOT(vanish()));
+}
+
+void Card::vanish()
+{
+    second++;
+    if(second == 2){
+        bloodTimer->stop();
+        delete bloodTimer;
+        this->hitPoints = 0;
+    }
 }
