@@ -151,24 +151,7 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     this->show();
 }
 
-map1::~map1()
-{
-    delete cm;
-    delete bridge1;
-    delete bridge2;
-    delete river;
-    delete stone;
-    delete myScore;
-    delete enemyScore;
-    delete kingTower;
-    delete kingTowerE;
-    delete leftArenaTower;
-    delete leftArenaTowerE;
-    delete rightArenaTower;
-    delete rightArenaTowerE;
-    delete timer;
-    delete gameTimer;
-}
+map1::~map1() { }
 
 void map1::arrangeCardDeck()
 {
