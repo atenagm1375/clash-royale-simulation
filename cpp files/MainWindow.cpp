@@ -504,7 +504,7 @@ void MainWindow::quitGame()
 {
     delete m1;
     delete m2;
-    QstackW->setCurrentWidget(gameOptions);
+    QstackW->setCurrentWidget(firstPage);
 }
 
 void MainWindow::unPause()
