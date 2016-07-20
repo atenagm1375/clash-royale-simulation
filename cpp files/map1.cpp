@@ -89,6 +89,8 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     gameTimer = new QTimer();
     connect(gameTimer, SIGNAL(timeout()), this, SLOT(timeManagement()));
 
+    timer = new QTimer();
+
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
     kingTower = new Tower(spc::Type::BUILDING , spc::Target::AirGround, 1.5, 4000, 90, 7, 7, px, timer);
     kingTower->isMyTeam = true;
