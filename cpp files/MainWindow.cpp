@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     makeGameOptions();
     makeCardSelection();
     makePause();
+    winnerPanel();
 
     connect(firstPage->exit, SIGNAL(clicked()), this, SLOT(close()));
     connect(firstPage->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
@@ -60,6 +61,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
     connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+
+    connect(winner->continueB, SIGNAL(clicked()), this, SLOT(optionPage()));
+    connect(winner->quit, SIGNAL(clicked()), this, SLOT(close()));
 
     connect(m1, SIGNAL(gameOver(int)), this, SLOT(gameEnded(int)));
 }
@@ -176,6 +180,12 @@ void MainWindow::makePause()
     connect(pause->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
     connect(pause->quit, SIGNAL(clicked()), this, SLOT(quitGame()));
     connect(pause->backToGame, SIGNAL(clicked()), this, SLOT(unPause()));
+}
+
+void MainWindow::winnerPanel()
+{
+    winner = new WinnerAnnouncement(QstackW);
+    QstackW->addWidget(winner);
 }
 
 void MainWindow::settingPage()
@@ -555,15 +565,16 @@ void MainWindow::unPause()
 
 void MainWindow::gameEnded(int i)
 {
-    std::string winner;
+    QString winnerStr;
     if(i == 0)
-        winner = "DRAW";
+        winnerStr = "DRAW";
     else if(i == 1)
-        winner = "YOU";
+        winnerStr = "YOU";
     else
-        winner = "ENEMY";
-    std::cout << winner << std::endl;
+        winnerStr = "ENEMY";
+    //std::cout << winner << std::endl;
     delete m1;
     delete m2;
-    QstackW->setCurrentWidget(firstPage);
+    winner->message->setText(winnerStr);
+    QstackW->setCurrentWidget(winner);
 }

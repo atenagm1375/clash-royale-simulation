@@ -35,6 +35,7 @@
 #include "Rage.h"
 #include "InfernoTower.h"
 #include "UsingFurnace.h"
+#include "WinnerAnnouncement.h"
 
 static int gameModeCode = 0;
 static bool gamePaused = false;
@@ -56,6 +57,7 @@ public:
     void makeCardSelection();
     void makeMap();
     void makePause();
+    void winnerPanel();
 
 private:
 
@@ -70,6 +72,7 @@ private:
     map1 *m1;
     map2 *m2;
     PausePage *pause;
+    WinnerAnnouncement *winner;
     QTimer *timer;
     LavaHound *lavaHound;
     IceWizard *iceWizard;
