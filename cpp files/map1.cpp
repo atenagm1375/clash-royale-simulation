@@ -159,12 +159,32 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     this->show();
 }
 
-map1::~map1() { }
+map1::~map1()
+{
+    delete cm;
+    delete bridge1;
+    delete bridge2;
+    delete stone;
+    for(int i = 0; i < 4; i++){
+        card[i]->clear();
+        delete card[i];
+    }
+    delete timeLabel;
+    delete myScore;
+    delete enemyScore;
+    delete pause;
+    delete river;
+    gameTimer->stop();
+    delete gameTimer;
+    scoreTimer->stop();
+    delete scoreTimer;
+    scene.clear();
+}
 
 void map1::arrangeCardDeck()
 {
     for(int i = 0; i < 4; i++) {
-        cm->myCardDeck.at(i)->setPos(card[i]->pos().x(), card[i]->pos().y() + 10);
+        cm->myCardDeck.at(i)->setPos(card[i]->pos().x() + 10, card[i]->pos().y() + 10);
         scene.addItem(cm->myCardDeck[i]);
     }
 }

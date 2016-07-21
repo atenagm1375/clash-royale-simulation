@@ -15,22 +15,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     timer = new QTimer();
 
-    lavaHound = new LavaHound(QPixmap("sources/1.png"), timer);
-    iceWizard = new IceWizard(QPixmap("sources/4.png"), timer);
-    balloon = new Balloon(QPixmap("sources/2.png"), timer);
-    darkPrince = new DarkPrince(QPixmap("sources/5.png"), timer);
-    hogRider = new HogRider(QPixmap("sources/10.png"), timer);
-    minionHorde = new MinionHorde(QPixmap("sources/3.png"), timer);
-    valkyrie = new Valkyrie(QPixmap("sources/7.png"), timer);
-    miner = new Miner(QPixmap("sources/6.png"), timer);
-    witch = new Witch(QPixmap("sources/8.png"), timer);
-    royalGiant = new RoyalGiant(QPixmap("sources/9.png"), timer);
-    mirror = new Mirror(QPixmap("sources/11.png"), timer);
-    zap = new Zap(QPixmap("sources/12.png"), timer);
-    rage = new Rage(QPixmap("sources/13.png"), timer);
-    infernoTower = new InfernoTower(QPixmap("sources/15.png"), timer);
-    furnace = new UsingFurnace(QPixmap("sources/14.png"), timer);
-
     QstackW = new QStackedWidget(this);
     setCentralWidget(QstackW);
 
@@ -58,9 +42,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(gameOptions->vsComputer, SIGNAL(clicked()), this, SLOT(setGameMode()));
     connect(gameOptions->online, SIGNAL(clicked()), this, SLOT(setGameMode()));
     connect(gameOptions->start, SIGNAL(clicked()), this, SLOT(cardSelection()));
-
-    connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
-    connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
 
     connect(winner->continueB, SIGNAL(clicked()), this, SLOT(optionPage()));
     connect(winner->quit, SIGNAL(clicked()), this, SLOT(close()));
@@ -141,6 +122,22 @@ void MainWindow::makeCardSelection()
 
 void MainWindow::makeMap()
 {
+    lavaHound = new LavaHound(QPixmap("sources/1.png"), timer);
+    iceWizard = new IceWizard(QPixmap("sources/4.png"), timer);
+    balloon = new Balloon(QPixmap("sources/2.png"), timer);
+    darkPrince = new DarkPrince(QPixmap("sources/5.png"), timer);
+    hogRider = new HogRider(QPixmap("sources/10.png"), timer);
+    minionHorde = new MinionHorde(QPixmap("sources/3.png"), timer);
+    valkyrie = new Valkyrie(QPixmap("sources/7.png"), timer);
+    miner = new Miner(QPixmap("sources/6.png"), timer);
+    witch = new Witch(QPixmap("sources/8.png"), timer);
+    royalGiant = new RoyalGiant(QPixmap("sources/9.png"), timer);
+    mirror = new Mirror(QPixmap("sources/11.png"), timer);
+    zap = new Zap(QPixmap("sources/12.png"), timer);
+    rage = new Rage(QPixmap("sources/13.png"), timer);
+    infernoTower = new InfernoTower(QPixmap("sources/15.png"), timer);
+    furnace = new UsingFurnace(QPixmap("sources/14.png"), timer);
+
     m1 = new map1(QstackW);
     QstackW->addWidget(m1);
 
@@ -170,6 +167,9 @@ void MainWindow::makeMap()
     m2->cm->myCardDeck.push_back(minionHorde);
     m2->cm->myCardDeck.push_back(zap);
     m2->cm->myCardDeck.push_back(infernoTower);
+
+    connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+    connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
 }
 
 void MainWindow::makePause()
@@ -531,8 +531,11 @@ void MainWindow::pauseGame()
 
 void MainWindow::quitGame()
 {
+    QstackW->removeWidget(m1);
+    QstackW->removeWidget(m2);
     delete m1;
     delete m2;
+    makeMap();
     QstackW->setCurrentWidget(firstPage);
 }
 
@@ -572,7 +575,7 @@ void MainWindow::gameEnded(int i)
         winnerStr = "YOU";
     else
         winnerStr = "ENEMY";
-    //std::cout << winner << std::endl;
+
     delete m1;
     delete m2;
     winner->message->setText(winnerStr);

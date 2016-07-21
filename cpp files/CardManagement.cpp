@@ -52,7 +52,16 @@ CardManagement::CardManagement(QGraphicsScene *s) : scene(s)
     objects = new QList<Object *>();
 }
 
-CardManagement::~CardManagement() { }
+CardManagement::~CardManagement()
+{
+    allCards.clear();
+    myCardDeck.clear();
+    objects->clear();
+    delete objects;
+    delete elixir;
+    elixirTimer->stop();
+    delete elixirTimer;
+}
 
 void CardManagement::incrementElixir()
 {
