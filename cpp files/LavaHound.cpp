@@ -5,7 +5,7 @@
 #include "header files/LavaHound.h"
 
 LavaHound::LavaHound(QPixmap pic, QTimer *timer)
-        : Card(spc::Type::AIRTROOP, spc::Target::Building, 1.3, 3000, 45, 2, 4, spc::Speed::Slow, 7, 1, 1, timer)
+        : Card(spc::Type::AIRTROOP, spc::Target::Building, 1.3, 3000, 45, 2, 6.5, spc::Speed::Slow, 7, 1, 1, timer)
 {
     this->setPixmap(pic);
     lavaPups = new LavaPups(QPixmap("sources/firePups.png"), timer);

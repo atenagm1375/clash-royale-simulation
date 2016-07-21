@@ -38,8 +38,13 @@ void Card::initialization(QList<Object *> *objs, QGraphicsScene *s)
     else
         speedValue = 10;
 
+    if(this->isMyTeam)
+        hpBar->setDefaultTextColor(Qt::cyan);
+    else
+        hpBar->setDefaultTextColor(Qt::red);
+
     fireCheckTimer = new QTimer();
-    fireCheckTimer->start(hitSpeed * 1000);
+    fireCheckTimer->start(10);
     connect(fireCheckTimer, SIGNAL(timeout()), this, SLOT(fireCheck()));
 
     attackTimer = new QTimer();
@@ -98,7 +103,7 @@ void Card::changePosition()
 void Card::moveManagement()
 {
     if(!isMoving){
-        if(this->isMyTeam){
+        if(this->isMyTeam && this->type == spc::Type::GROUNDTROOP){
             if(this->pos().y() + this->boundingRect().center().y() > 400) {
                 if (this->pos().x() + this->boundingRect().center().x() <= 600)
                     move(357.5, 350);
@@ -107,6 +112,9 @@ void Card::moveManagement()
             }
             else
                 move(x(), 200);
+        }
+        else if(this->isMyTeam && this->type == spc::Type::AIRTROOP){
+            move(x(), 200);
         }
     }
     if(!canSee){
@@ -157,7 +165,7 @@ void Card::moveControl()
     connect(timer, SIGNAL(timeout()), this, SLOT(moveManagement()));
 
     checkTimer = new QTimer();
-    checkTimer->start(deployTime * 1000);
+    checkTimer->start(hitSpeed * 1000);
     connect(checkTimer, SIGNAL(timeout()), this, SLOT(attackRange()));
 }
 
@@ -230,8 +238,10 @@ void Card::attack(Object *obj)
 
 void Card::damaged(double d)
 {
-    if(this->hitPoints > d)
+    if(this->hitPoints > d) {
         this->hitPoints -= d;
+        hpBar->setPlainText(QString::number(hitPoints));
+    }
     else
         killCard();
 }

@@ -19,6 +19,7 @@ WinnerAnnouncement::WinnerAnnouncement(QWidget *parent) : QWidget(parent)
     message->setFont(QFont("serif", 40, QFont::Bold));
     message->setGeometry(300, 100, 600, 50);
     message->setAlignment(Qt::AlignCenter);
+    message->setStyleSheet("QLabel { color : cyan; }");
 
     quit = new QPushButton("QUIT", this);
     quit->setFont(QFont("serif", 25, QFont::Bold));

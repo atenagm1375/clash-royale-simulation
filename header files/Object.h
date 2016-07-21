@@ -28,6 +28,7 @@ public:
     double territory;
     bool isMyTeam;
     bool isAlive;
+    QGraphicsTextItem *hpBar;
 };
 
 

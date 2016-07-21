@@ -18,6 +18,11 @@ void Tower::initialization(QList<Object *> *objs, QGraphicsScene *s)
     objects = objs;
     scene = s;
 
+    if(this->isMyTeam)
+        hpBar->setDefaultTextColor(Qt::cyan);
+    else
+        hpBar->setDefaultTextColor(Qt::red);
+
     attackTimer = new QTimer();
     attackTimer->start(hitSpeed * 1000);
     connect(attackTimer, SIGNAL(timeout()), this, SLOT(attackRange()));
@@ -53,21 +58,23 @@ void Tower::attack(Object *obj)
     if(dynamic_cast<Card *>(obj) != NULL)
         dynamic_cast<Card *>(obj)->damaged(this->damage);
 
-    shoot(obj->pos().x() + obj->boundingRect().center().x(), obj->pos().y() + obj->boundingRect().center().y());
+    shoot(obj->pos().x(), obj->pos().y());
 }
 
 void Tower::shoot(double x, double y)
 {
-    fires.push_back(new Fire(this->pos().x() + this->boundingRect().center().x(),
-                             this->pos().y() + this->boundingRect().center().y(), x, y, spc::fireType::blueFire));
+    fires.push_back(new Fire(this->pos().x(),
+                             this->pos().y(), x, y, spc::fireType::blueFire));
     scene->addItem(fires.back());
     fires.back()->shoot();
 }
 
 void Tower::damaged(double d)
 {
-    if(this->hitPoints > d)
+    if(this->hitPoints > d) {
         this->hitPoints -= d;
+        hpBar->setPlainText(QString::number(hitPoints));
+    }
     else
         destroyTower();
 }
@@ -95,10 +102,10 @@ void Tower::vanish()
 
 bool Tower::isInRange(Object *obj)
 {
-    double myX = this->pos().x() + this->boundingRect().center().x();
-    double myY = this->pos().y() + this->boundingRect().center().y();
-    double objX = obj->pos().x() + obj->boundingRect().center().x();
-    double objY = obj->pos().y() + obj->boundingRect().center().y();
+    double myX = this->pos().x();
+    double myY = this->pos().y();
+    double objX = obj->pos().x();
+    double objY = obj->pos().y();
 
     return (myX - objX) * (myX - objX) + (myY - objY) * (myY - objY) <= range * range;
 }
