@@ -3,6 +3,8 @@
 //
 
 #include <QtCore/qfileinfo.h>
+#include <iostream>
+#include <QtWidgets/qmessagebox.h>
 #include "header files/MainWindow.h"
 
 
@@ -58,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
     connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+
+    connect(m1, SIGNAL(gameOver(int)), this, SLOT(gameEnded(int)));
 }
 
 MainWindow::~MainWindow() { }
@@ -547,4 +551,19 @@ void MainWindow::unPause()
     }
     else
         QstackW->setCurrentWidget(m2);
+}
+
+void MainWindow::gameEnded(int i)
+{
+    std::string winner;
+    if(i == 0)
+        winner = "DRAW";
+    else if(i == 1)
+        winner = "YOU";
+    else
+        winner = "ENEMY";
+    std::cout << winner << std::endl;
+    delete m1;
+    delete m2;
+    QstackW->setCurrentWidget(firstPage);
 }

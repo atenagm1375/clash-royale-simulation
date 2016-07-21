@@ -14,7 +14,7 @@ Object::Object(int tp, int trgt, double hs, int hp, int d, double r, double tr, 
     hitPoints = hp;
     damage = d;
     range = r * 40;
-    territory = tr * 40;
+    territory = tr * 100;
     isMyTeam = true;
     isAlive = true;
 }

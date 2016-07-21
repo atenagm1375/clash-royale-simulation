@@ -116,6 +116,7 @@ public slots:
     void pauseGame();
     void quitGame();
     void unPause();
+    void gameEnded(int);
 };
 
 

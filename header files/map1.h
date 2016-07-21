@@ -46,6 +46,7 @@ private:
     QLabel *card[4];
     QLabel *timeLabel;
     QTimer *gameTimer;
+    QTimer *scoreTimer;
     QTimer *timer;
     Tower *kingTower;
     Tower *kingTowerE;
@@ -59,10 +60,12 @@ public slots:
 
     void timeManagement();
     void go(int);
+    void checkScore();
 
     signals:
 
     void moveCall();
+    void gameOver(int);
 };
 
 

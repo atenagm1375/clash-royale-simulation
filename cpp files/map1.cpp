@@ -3,6 +3,8 @@
 
 #include <header files/map1.h>
 #include <QScrollBar>
+#include <QtWidgets/qmessagebox.h>
+#include <iostream>
 #include "header files/Specifications.h"
 
 
@@ -89,6 +91,10 @@ map1::map1(::map1::QWidget *parent) : QGraphicsView(parent)
     gameTimer = new QTimer();
     connect(gameTimer, SIGNAL(timeout()), this, SLOT(timeManagement()));
 
+    scoreTimer = new QTimer();
+    connect(scoreTimer, SIGNAL(timeout()), this, SLOT(checkScore()));
+    scoreTimer->start(10);
+
     timer = new QTimer();
 
     QPixmap *px = new QPixmap(QPixmap("sources/myTower.png").scaled(150, 150));
@@ -166,38 +172,19 @@ void map1::timeManagement()
     if(!isFinished){
         second--;
         setTime();
-        for(int i = 0; i < cm->objects->size(); i++)
-            if(!cm->objects->at(i)->isAlive){
-                if(dynamic_cast<Tower *>(cm->objects->at(i)) != NULL &&
-                        dynamic_cast<Tower *>(cm->objects->at(i))->isKingTower){
-                    if(cm->objects->at(i)->isMyTeam){
-                        enemyScoreValue += 2;
-                        enemyScore->setNum(enemyScoreValue);
-                    }
-                    else{
-                        myScoreValue += 2;
-                        myScore->setNum(myScoreValue);
-                    }
-                }
-                else if(dynamic_cast<Tower *>(cm->objects->at(i)) != NULL){
-                    if(cm->objects->at(i)->isMyTeam){
-                        enemyScoreValue++;
-                        enemyScore->setNum(enemyScoreValue);
-                    }
-                    else {
-                        myScoreValue++;
-                        myScore->setNum(myScoreValue);
-                    }
-                }
-                delete cm->objects->at(i);
-                cm->objects->removeAt(i);
-            }
         if(second == 0){
-            if(!isExtraTime && myScore->text() == enemyScore->text()) {
+            if(!isExtraTime && myScoreValue == enemyScoreValue) {
                 second = 60;
                 isExtraTime = true;
             }
             else {
+                isFinished = true;
+                gameTimer->stop();
+                cm->elixirTimer->stop();
+            }
+        }
+        else{
+            if(myScoreValue == 3 || enemyScoreValue == 3){
                 isFinished = true;
                 gameTimer->stop();
                 cm->elixirTimer->stop();
@@ -227,5 +214,75 @@ void map1::go(int i)
         cm->allCards[cm->allCards.size() - 1 - j]->initialization(cm->objects, &scene);
         connect(this, SIGNAL(moveCall()), cm->allCards[cm->allCards.size() - 1 - j], SLOT(moveControl()));
         emit moveCall();
+    }
+}
+
+void map1::checkScore()
+{
+    if(!isFinished) {
+        for (int i = 0; i < cm->objects->size(); i++) {
+            if (!cm->objects->at(i)->isAlive) {
+                if (dynamic_cast<Tower *>(cm->objects->at(i)) != NULL &&
+                    dynamic_cast<Tower *>(cm->objects->at(i))->isKingTower) {
+                    if (dynamic_cast<Tower *>(cm->objects->at(i))->isMyTeam) {
+                        if (leftArenaTower->isAlive) {
+                            scene.removeItem(leftArenaTower);
+                            enemyScoreValue++;
+                            //int j = cm->objects->indexOf(leftArenaTower);
+                            //delete cm->objects->at(j);
+                            //cm->objects->removeAt(j);
+                        }
+                        else if (rightArenaTower->isAlive) {
+                            scene.removeItem(rightArenaTower);
+                            enemyScoreValue++;
+                            //int j = cm->objects->indexOf(rightArenaTower);
+                            //delete cm->objects->at(j);
+                            //cm->objects->removeAt(j);
+                        }
+                        enemyScoreValue++;
+                        enemyScore->setNum(enemyScoreValue);
+                    }
+                    else {
+                        if (leftArenaTowerE->isAlive) {
+                            scene.removeItem(leftArenaTowerE);
+                            myScoreValue++;
+                            //int j = cm->objects->indexOf(leftArenaTowerE);
+                            //delete cm->objects->at(j);
+                            //cm->objects->removeAt(j);
+                        }
+                        else if (rightArenaTowerE->isAlive) {
+                            scene.removeItem(rightArenaTowerE);
+                            myScoreValue++;
+                            //int j = cm->objects->indexOf(rightArenaTowerE);
+                            //delete cm->objects->at(j);
+                            //cm->objects->removeAt(j);
+                        }
+                        myScoreValue++;
+                        myScore->setNum(myScoreValue);
+                    }
+                }
+                else if (dynamic_cast<Tower *>(cm->objects->at(i)) != NULL &&
+                         !dynamic_cast<Tower *>(cm->objects->at(i))->isKingTower) {
+                    if (!dynamic_cast<Tower *>(cm->objects->at(i))->isMyTeam) {
+                        myScoreValue++;
+                        myScore->setNum(myScoreValue);
+                    }
+                    else {
+                        enemyScoreValue++;
+                        enemyScore->setNum(enemyScoreValue);
+                    }
+                }
+                delete cm->objects->at(i);
+                cm->objects->removeAt(i);
+            }
+        }
+    }
+    else{
+        if(myScoreValue == enemyScoreValue)
+            emit gameOver(0);
+        else if(myScoreValue > enemyScoreValue)
+            emit gameOver(1);
+        else
+            emit gameOver(2);
     }
 }
