@@ -81,6 +81,7 @@ void Tower::damaged(double d)
 
 void Tower::destroyTower()
 {
+    hpBar->hide();
     this->setPixmap(QPixmap("sources/blood.png").scaled(20, 20));
     this->isAlive = false;
     second = 0;

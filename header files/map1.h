@@ -61,11 +61,13 @@ public slots:
     void timeManagement();
     void go(int);
     void checkScore();
+    void removeDead();
 
     signals:
 
     void moveCall();
     void gameOver(int);
+    void end();
 };
 
 

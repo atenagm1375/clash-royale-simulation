@@ -43,10 +43,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(gameOptions->online, SIGNAL(clicked()), this, SLOT(setGameMode()));
     connect(gameOptions->start, SIGNAL(clicked()), this, SLOT(cardSelection()));
 
-    connect(winner->continueB, SIGNAL(clicked()), this, SLOT(optionPage()));
+    connect(winner->continueB, SIGNAL(clicked()), this, SLOT(quitGame()));
     connect(winner->quit, SIGNAL(clicked()), this, SLOT(close()));
-
-    connect(m1, SIGNAL(gameOver(int)), this, SLOT(gameEnded(int)));
 }
 
 MainWindow::~MainWindow() { }
@@ -170,6 +168,8 @@ void MainWindow::makeMap()
 
     connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
     connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+
+    connect(m1, SIGNAL(gameOver(int)), this, SLOT(gameEnded(int)));
 }
 
 void MainWindow::makePause()
@@ -531,6 +531,7 @@ void MainWindow::pauseGame()
 
 void MainWindow::quitGame()
 {
+    gamePaused = true;
     QstackW->removeWidget(m1);
     QstackW->removeWidget(m2);
     delete m1;
@@ -576,8 +577,6 @@ void MainWindow::gameEnded(int i)
     else
         winnerStr = "ENEMY";
 
-    delete m1;
-    delete m2;
     winner->message->setText(winnerStr);
     QstackW->setCurrentWidget(winner);
 }

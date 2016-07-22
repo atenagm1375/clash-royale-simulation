@@ -17,7 +17,7 @@ Settings::Settings(QWidget *parent) : QWidget(parent)
 
     settingLabel = new QLabel("SETTINGS", this);
     settingLabel->setGeometry(450, 20, 400, 60);
-    settingLabel->setFont(QFont("serif", 30, QFont::ExtraBold));
+    settingLabel->setFont(QFont("serif", 30, QFont::Bold));
     settingLabel->setStyleSheet("QLabel { color : cyan; }");
 
     back = new QPushButton("BACK", this);

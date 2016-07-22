@@ -256,9 +256,11 @@ void Card::shoot(double x, double y)
 
 void Card::killCard()
 {
+    hpBar->hide();
     this->setPixmap(QPixmap("sources/blood.png").scaled(40, 40));
     this->isAlive = false;
     second = 0;
+    moveTimer->stop();
 
     bloodTimer = new QTimer();
     bloodTimer->start(1000);
