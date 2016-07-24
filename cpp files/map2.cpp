@@ -152,7 +152,22 @@ map2::map2(QWidget *parent) : QGraphicsView(parent)
     this->show();
 }
 
-map2::~map2() { }
+map2::~map2()
+{
+    delete cm;
+    delete stone;
+    for(int i = 0; i < 4; i++){
+        card[i]->clear();
+        delete card[i];
+        delete bridge[i];
+    }
+    delete timeLabel;
+    delete myScore;
+    delete enemyScore;
+    delete pause;
+    delete river;
+    scene.clear();
+}
 
 void map2::incrementElixir()
 {

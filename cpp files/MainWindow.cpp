@@ -3,6 +3,8 @@
 //
 
 #include <QtCore/qfileinfo.h>
+#include <iostream>
+#include <QtWidgets/qmessagebox.h>
 #include "header files/MainWindow.h"
 
 
@@ -12,22 +14,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     this->setGeometry(20, 20, 1200, 700);
 
     timer = new QTimer();
-
-    lavaHound = new LavaHound(QPixmap("sources/1.png"), timer);
-    iceWizard = new IceWizard(QPixmap("sources/4.png"), timer);
-    balloon = new Balloon(QPixmap("sources/2.png"), timer);
-    darkPrince = new DarkPrince(QPixmap("sources/5.png"), timer);
-    hogRider = new HogRider(QPixmap("sources/10.png"), timer);
-    minionHorde = new MinionHorde(QPixmap("sources/3.png"), timer);
-    valkyrie = new Valkyrie(QPixmap("sources/7.png"), timer);
-    miner = new Miner(QPixmap("sources/6.png"), timer);
-    witch = new Witch(QPixmap("sources/8.png"), timer);
-    royalGiant = new RoyalGiant(QPixmap("sources/9.png"), timer);
-    mirror = new Mirror(QPixmap("sources/11.png"), timer);
-    zap = new Zap(QPixmap("sources/12.png"), timer);
-    rage = new Rage(QPixmap("sources/13.png"), timer);
-    infernoTower = new InfernoTower(QPixmap("sources/15.png"), timer);
-    furnace = new UsingFurnace(QPixmap("sources/14.png"), timer);
 
     QstackW = new QStackedWidget(this);
     setCentralWidget(QstackW);
@@ -40,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     makeGameOptions();
     makeCardSelection();
     makePause();
+    winnerPanel();
 
     connect(firstPage->exit, SIGNAL(clicked()), this, SLOT(close()));
     connect(firstPage->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
@@ -56,8 +43,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     connect(gameOptions->online, SIGNAL(clicked()), this, SLOT(setGameMode()));
     connect(gameOptions->start, SIGNAL(clicked()), this, SLOT(cardSelection()));
 
-    connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
-    connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+    connect(winner->continueB, SIGNAL(clicked()), this, SLOT(quitGame()));
+    connect(winner->quit, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 MainWindow::~MainWindow() { }
@@ -133,6 +120,22 @@ void MainWindow::makeCardSelection()
 
 void MainWindow::makeMap()
 {
+    lavaHound = new LavaHound(QPixmap("sources/1.png"), timer);
+    iceWizard = new IceWizard(QPixmap("sources/4.png"), timer);
+    balloon = new Balloon(QPixmap("sources/2.png"), timer);
+    darkPrince = new DarkPrince(QPixmap("sources/5.png"), timer);
+    hogRider = new HogRider(QPixmap("sources/10.png"), timer);
+    minionHorde = new MinionHorde(QPixmap("sources/3.png"), timer);
+    valkyrie = new Valkyrie(QPixmap("sources/7.png"), timer);
+    miner = new Miner(QPixmap("sources/6.png"), timer);
+    witch = new Witch(QPixmap("sources/8.png"), timer);
+    royalGiant = new RoyalGiant(QPixmap("sources/9.png"), timer);
+    mirror = new Mirror(QPixmap("sources/11.png"), timer);
+    zap = new Zap(QPixmap("sources/12.png"), timer);
+    rage = new Rage(QPixmap("sources/13.png"), timer);
+    infernoTower = new InfernoTower(QPixmap("sources/15.png"), timer);
+    furnace = new UsingFurnace(QPixmap("sources/14.png"), timer);
+
     m1 = new map1(QstackW);
     QstackW->addWidget(m1);
 
@@ -162,6 +165,11 @@ void MainWindow::makeMap()
     m2->cm->myCardDeck.push_back(minionHorde);
     m2->cm->myCardDeck.push_back(zap);
     m2->cm->myCardDeck.push_back(infernoTower);
+
+    connect(m1->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+    connect(m2->pause, SIGNAL(clicked()), this, SLOT(pauseGame()));
+
+    connect(m1, SIGNAL(gameOver(int)), this, SLOT(gameEnded(int)));
 }
 
 void MainWindow::makePause()
@@ -172,6 +180,12 @@ void MainWindow::makePause()
     connect(pause->setting, SIGNAL(clicked()), this, SLOT(settingPage()));
     connect(pause->quit, SIGNAL(clicked()), this, SLOT(quitGame()));
     connect(pause->backToGame, SIGNAL(clicked()), this, SLOT(unPause()));
+}
+
+void MainWindow::winnerPanel()
+{
+    winner = new WinnerAnnouncement(QstackW);
+    QstackW->addWidget(winner);
 }
 
 void MainWindow::settingPage()
@@ -482,6 +496,7 @@ void MainWindow::playGame()
     gamePaused = false;
     if(gameModeCode == 0) {
         m1->arrangeCardDeck();
+        m1->gameTimer->start(1000);
         m1->cm->elixirTimer->start(4000);
         QstackW->setCurrentWidget(m1);
     }
@@ -493,20 +508,75 @@ void MainWindow::pauseGame()
 {
     gamePaused = true;
     QstackW->setCurrentWidget(pause);
+    if(gameModeCode == 0){
+        m1->gameTimer->stop();
+        m1->cm->elixirTimer->stop();
+        for(int i = 0; i < m1->cm->objects->size(); i++){
+            if(m1->cm->objects->at(i)->isAlive){
+                if(dynamic_cast<Card *>(m1->cm->objects->at(i)) != NULL){
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->moveTimer->stop();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->attackTimer->stop();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->checkTimer->stop();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->fireCheckTimer->stop();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->timer->stop();
+                }
+                else if(dynamic_cast<Tower *>(m1->cm->objects->at(i)) != NULL){
+                    dynamic_cast<Tower *>(m1->cm->objects->at(i))->attackTimer->stop();
+                    dynamic_cast<Tower *>(m1->cm->objects->at(i))->fireCheckTimer->stop();
+                }
+            }
+        }
+    }
 }
 
 void MainWindow::quitGame()
 {
+    gamePaused = true;
+    QstackW->removeWidget(m1);
+    QstackW->removeWidget(m2);
     delete m1;
     delete m2;
-    QstackW->setCurrentWidget(gameOptions);
+    makeMap();
+    QstackW->setCurrentWidget(firstPage);
 }
 
 void MainWindow::unPause()
 {
     gamePaused = false;
-    if(gameModeCode == 0)
+    if(gameModeCode == 0) {
         QstackW->setCurrentWidget(m1);
+        m1->gameTimer->start();
+        m1->cm->elixirTimer->start();
+        for(int i = 0; i < m1->cm->objects->size(); i++){
+            if(m1->cm->objects->at(i)->isAlive){
+                if(dynamic_cast<Card *>(m1->cm->objects->at(i)) != NULL){
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->moveTimer->start();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->attackTimer->start();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->checkTimer->start();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->fireCheckTimer->start();
+                    dynamic_cast<Card *>(m1->cm->objects->at(i))->timer->start();
+                }
+                else if(dynamic_cast<Tower *>(m1->cm->objects->at(i)) != NULL){
+                    dynamic_cast<Tower *>(m1->cm->objects->at(i))->attackTimer->start();
+                    dynamic_cast<Tower *>(m1->cm->objects->at(i))->fireCheckTimer->start();
+                }
+            }
+        }
+    }
     else
         QstackW->setCurrentWidget(m2);
+}
+
+void MainWindow::gameEnded(int i)
+{
+    QString winnerStr;
+    if(i == 0)
+        winnerStr = "DRAW";
+    else if(i == 1)
+        winnerStr = "YOU";
+    else
+        winnerStr = "ENEMY";
+
+    winner->message->setText(winnerStr);
+    QstackW->setCurrentWidget(winner);
 }

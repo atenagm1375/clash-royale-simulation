@@ -5,16 +5,17 @@
 #include <header files/Miner.h>
 
 Miner::Miner(QPixmap pic, QTimer *timer)
-        : Card(spc::Type::GROUNDTROOP, spc::Target::Ground, 1.2, 1000, 160, 1, 2, spc::Speed::Fast, 3, 1, 1, timer)
+        : Card(spc::Type::GROUNDTROOP, spc::Target::Ground, 1.2, 1000, 160, 2, 6.5, spc::Speed::Fast, 3, 1, 1, timer)
 {
     this->setPixmap(pic);
     crownTowerDamage = 64;
+    id = 8;
 }
 
 Miner::~Miner() { }
 
 void Miner::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    isSelected = true;
+    id = 8;
     spc::cardNo = 8;
 }

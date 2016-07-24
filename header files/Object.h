@@ -11,14 +11,13 @@
 class Object : public QObject, public QGraphicsPixmapItem{
 
     Q_OBJECT
+    friend class map1;
 
 public:
 
     Object();
     Object(int, int, double, int, int, double, double, QTimer *);
     ~Object();
-
-protected:
 
     int type;
     int target;
@@ -27,6 +26,9 @@ protected:
     int damage;
     double range;
     double territory;
+    bool isMyTeam;
+    bool isAlive;
+    QGraphicsTextItem *hpBar;
 };
 
 

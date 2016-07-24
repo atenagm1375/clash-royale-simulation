@@ -23,6 +23,7 @@ class CardManagement : public QObject, public QGraphicsPixmapItem{
 
     Q_OBJECT
     friend class MainWindow;
+    friend class map1;
 
 public:
 
@@ -31,6 +32,7 @@ public:
     void mousePressEvent(QGraphicsSceneMouseEvent *);
     QList<Card *> myCardDeck;
     QList<Card *> allCards;
+    QList<Object *> *objects;
 
 protected:
 
@@ -39,9 +41,17 @@ protected:
     QProgressBar *elixir;
     QTimer *elixirTimer;
 
+private:
+
+    int getIndex(bool &);
+
 public slots:
 
     void incrementElixir();
+
+signals:
+
+    void moveForward(int);
 };
 
 

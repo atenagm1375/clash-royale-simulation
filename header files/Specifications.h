@@ -9,6 +9,7 @@ namespace spc{
     enum Type{GROUNDTROOP, AIRTROOP, BUILDING, SPELL};
     enum Target{Ground, Building, AirGround, what};
     enum Speed{NONE, Slow, Medium, Fast, VeryFast};
+    enum fireType{blueFire, greenFire, redFire};
     extern int cardNo;
 }
 
