@@ -277,6 +277,11 @@ void map1::removeDead()
 
 void map1::checkScore()
 {
+    if(!isFinished && (myScoreValue == 3 || enemyScoreValue == 3)){
+        isFinished = true;
+        gameTimer->stop();
+        cm->elixirTimer->stop();
+    }
     if(isFinished){
         if(myScoreValue == enemyScoreValue)
                 emit gameOver(0);
