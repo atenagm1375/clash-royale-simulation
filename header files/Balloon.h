@@ -21,6 +21,12 @@ public:
 private:
 
     int deathDamage;
+    QTimer *bombTimer;
+
+public slots:
+
+    void bomb();
+    void explode();
 };
 
 

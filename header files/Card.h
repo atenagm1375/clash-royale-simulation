@@ -30,6 +30,7 @@ public:
     ~Card();
     int id;
     void initialization(QList<Object *> *, QGraphicsScene *);
+    void damaged(double);
 
 protected:
 
@@ -63,9 +64,12 @@ protected:
     bool isInTerritory(Object *);
     bool isInRange(Object *);
     void attack(Object *);
-    void damaged(double);
     void shoot(double, double);
     void killCard();
+
+signals:
+
+    void blast();
 
 public slots:
 

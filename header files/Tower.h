@@ -17,6 +17,7 @@ class Tower : public Object{
     friend class Card;
     friend class MainWindow;
     friend class map1;
+    friend class Balloon;
 
 public:
 
